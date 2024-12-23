@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Dragon Community</title>
+    <title>Login - Discord Community</title>
     <style>
         * {
             margin: 0;
@@ -18,34 +18,48 @@
             min-height: 100vh;
             overflow: hidden;
             position: relative;
-            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
-                        url('https://i.imgur.com/ZFNxqfz.jpg') center/cover no-repeat fixed;
         }
 
-        /* Efecto de ki */
-        .ki-particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: #00ffff;
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0;
-            animation: kiRise linear infinite;
+        /* Efecto de fondo animado */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 50% 50%, 
+                    rgba(0, 255, 255, 0.1) 0%, 
+                    transparent 50%);
+            animation: pulse 4s ease-in-out infinite;
+            z-index: 0;
         }
 
-        @keyframes kiRise {
-            0% {
-                opacity: 0;
-                transform: translateY(100vh) translateX(0);
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-20vh) translateX(20px);
-            }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Líneas de grid */
+        .grid {
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg);
+            animation: grid 20s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes grid {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
         }
 
         .login-container {
@@ -55,7 +69,7 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
-            z-index: 1;
+            z-index: 2;
         }
 
         .login-card {
@@ -70,6 +84,7 @@
             animation: cardAppear 0.6s ease-out;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
         .login-card::before {
@@ -143,42 +158,9 @@
             overflow: hidden;
         }
 
-        .login-button::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-            transform: rotate(45deg);
-            transition: 0.5s;
-            opacity: 0;
-        }
-
         .login-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
-        }
-
-        .login-button:hover::before {
-            animation: buttonShine 1s;
-        }
-
-        @keyframes buttonShine {
-            0% {
-                transform: translateX(-100%) rotate(45deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(100%) rotate(45deg);
-                opacity: 0;
-            }
         }
 
         .discord-icon {
@@ -189,11 +171,13 @@
     </style>
 </head>
 <body>
+    <div class="background"></div>
+    <div class="grid"></div>
     <div class="login-container">
         <div class="login-card">
             <h1 class="title">¡Únete al Poder!</h1>
             <p class="description">
-                Alcanza tu máximo potencial en nuestra comunidad de guerreros Z
+                Alcanza tu máximo potencial en nuestra comunidad exclusiva
             </p>
             <button id="loginButton" class="login-button">
                 <svg class="discord-icon" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -205,35 +189,14 @@
     </div>
 
     <script>
-        // Configuración
         const BACKEND_URL = 'https://mipolla.onrender.com';
         const CLIENT_ID = 'TU_CLIENT_ID_DE_DISCORD';
         const REDIRECT_URI = `${BACKEND_URL}/api/auth/discord/callback`;
 
-        // Crear efecto de ki
-        function createKiParticles() {
-            const container = document.body;
-            const particleCount = 30;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'ki-particle';
-                particle.style.left = `${Math.random() * 100}vw`;
-                const duration = 3 + Math.random() * 4;
-                const delay = Math.random() * 2;
-                particle.style.animation = `kiRise ${duration}s ${delay}s linear infinite`;
-                container.appendChild(particle);
-            }
-        }
-
-        // Iniciar sesión con Discord
         document.getElementById('loginButton').addEventListener('click', () => {
             const DISCORD_URL = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=identify`;
             window.location.href = DISCORD_URL;
         });
-
-        // Crear efecto de ki al cargar
-        createKiParticles();
     </script>
 </body>
 </html>
