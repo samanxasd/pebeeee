@@ -243,3 +243,183 @@
         }
     </style>
 </head>
+
+<body>
+    <div id="particles-js"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="user-profile">
+                <img id="userAvatar" src="" alt="Avatar" class="avatar">
+                <span id="username" class="username">Cargando...</span>
+            </div>
+            <button id="logoutButton" class="logout-button">
+                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+            </button>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+        <!-- Mensaje de bienvenida -->
+        <div class="welcome-message">
+            <h1 class="welcome-title">¡Bienvenido, <span id="welcomeUsername">Usuario</span>! ❄️</h1>
+            <p class="welcome-subtitle">Descubre todo el contenido exclusivo que tenemos para ti</p>
+        </div>
+
+        <!-- Grid de enlaces -->
+        <div class="links-grid">
+            <div class="link-card">
+                <div class="link-icon">💬</div>
+                <h3 class="link-title">Discord</h3>
+                <p class="link-description">Únete a nuestra comunidad y conoce a más miembros</p>
+                <a href="TU_LINK_DISCORD" class="link-button" target="_blank">Unirse ahora</a>
+            </div>
+
+            <div class="link-card">
+                <div class="link-icon">📱</div>
+                <h3 class="link-title">Telegram</h3>
+                <p class="link-description">Recibe notificaciones y actualizaciones instantáneas</p>
+                <a href="TU_LINK_TELEGRAM" class="link-button" target="_blank">Seguir canal</a>
+            </div>
+
+            <div class="link-card">
+                <div class="link-icon">📸</div>
+                <h3 class="link-title">Instagram</h3>
+                <p class="link-description">Explora nuestro contenido visual exclusivo</p>
+                <a href="TU_LINK_INSTAGRAM" class="link-button" target="_blank">Ver perfil</a>
+            </div>
+
+            <div class="link-card">
+                <div class="link-icon">🌟</div>
+                <h3 class="link-title">Twitter</h3>
+                <p class="link-description">Mantente al día con las últimas novedades</p>
+                <a href="TU_LINK_TWITTER" class="link-button" target="_blank">Seguir</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Configuración de partículas
+        particlesJS('particles-js',
+            {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#ffffff"
+                    },
+                    "shape": {
+                        "type": "circle"
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": true
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "bottom",
+                        "straight": false
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "repulse"
+                        }
+                    }
+                }
+            }
+        );
+
+        // Verificar autenticación
+        function checkAuth() {
+            const token = localStorage.getItem('discord_token');
+            const userData = localStorage.getItem('user_data');
+
+            if (!token || !userData) {
+                window.location.href = '/';
+                return;
+            }
+
+            try {
+                const user = JSON.parse(userData);
+                
+                // Actualizar elementos UI
+                document.getElementById('username').textContent = user.username;
+                document.getElementById('welcomeUsername').textContent = user.username;
+                
+                // Configurar avatar
+                if (user.avatar) {
+                    document.getElementById('userAvatar').src = 
+                        `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+                } else {
+                    document.getElementById('userAvatar').src = 
+                        'https://cdn.discordapp.com/embed/avatars/0.png';
+                }
+
+                // Añadir efecto de aparición suave a las cards
+                const cards = document.querySelectorAll('.link-card');
+                cards.forEach((card, index) => {
+                    card.style.animation = `fadeInUp 0.5s ease forwards ${0.1 * (index + 1)}s`;
+                });
+
+            } catch (error) {
+                console.error('Error al cargar datos del usuario:', error);
+                window.location.href = '/';
+            }
+        }
+
+        // Manejar cierre de sesión
+        document.getElementById('logoutButton').addEventListener('click', () => {
+            // Añadir animación de salida
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.3s ease';
+            
+            setTimeout(() => {
+                localStorage.removeItem('discord_token');
+                localStorage.removeItem('user_data');
+                window.location.href = '/';
+            }, 300);
+        });
+
+        // Inicializar
+        window.addEventListener('load', () => {
+            // Añadir animación de entrada
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+                document.body.style.transition = 'opacity 0.5s ease';
+            }, 100);
+            
+            checkAuth();
+        });
+
+        // Añadir efectos hover a las cards
+        document.querySelectorAll('.link-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px)';
+                card.style.boxShadow = '0 15px 45px rgba(110, 123, 255, 0.2)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+                card.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1)';
+            });
+        });
+    </script>
+</body>
+</html>
