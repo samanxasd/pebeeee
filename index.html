@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Discord Community</title>
+    <title>Christmas Login</title>
     <style>
         * {
             margin: 0;
@@ -20,7 +20,32 @@
             position: relative;
         }
 
-        /* Efecto de fondo animado */
+        /* Efecto de nieve */
+        .snowflake {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: snowfall linear infinite;
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-100vh) translateX(0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+
+        /* Fondo con gradiente */
         .background {
             position: fixed;
             top: 0;
@@ -29,37 +54,15 @@
             height: 100%;
             background: 
                 radial-gradient(circle at 50% 50%, 
-                    rgba(0, 255, 255, 0.1) 0%, 
+                    rgba(220, 20, 60, 0.1) 0%, 
                     transparent 50%);
-            animation: pulse 4s ease-in-out infinite;
-            z-index: 0;
+            z-index: -1;
+            animation: pulseGlow 4s ease-in-out infinite;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        /* Líneas de grid */
-        .grid {
-            position: fixed;
-            width: 200%;
-            height: 200%;
-            top: -50%;
-            left: -50%;
-            background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            transform: perspective(500px) rotateX(60deg);
-            animation: grid 20s linear infinite;
-            z-index: 1;
-        }
-
-        @keyframes grid {
-            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
-            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
         }
 
         .login-container {
@@ -69,7 +72,7 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
-            z-index: 2;
+            z-index: 1;
         }
 
         .login-card {
@@ -79,8 +82,8 @@
             text-align: center;
             max-width: 400px;
             width: 100%;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-            border: 1px solid rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(220, 20, 60, 0.2);
+            border: 1px solid rgba(220, 20, 60, 0.1);
             animation: cardAppear 0.6s ease-out;
             position: relative;
             overflow: hidden;
@@ -97,7 +100,7 @@
             background: linear-gradient(
                 45deg,
                 transparent,
-                rgba(0, 255, 255, 0.1),
+                rgba(220, 20, 60, 0.1),
                 transparent
             );
             transform: rotate(45deg);
@@ -120,17 +123,28 @@
             }
         }
 
+        .christmas-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
         .title {
-            color: #00ffff;
+            color: #dc143c;
             font-size: 2em;
             margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            text-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
             animation: titleGlow 2s infinite alternate;
         }
 
         @keyframes titleGlow {
-            from { text-shadow: 0 0 10px rgba(0, 255, 255, 0.5); }
-            to { text-shadow: 0 0 20px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.6); }
+            from { text-shadow: 0 0 10px rgba(220, 20, 60, 0.5); }
+            to { text-shadow: 0 0 20px rgba(220, 20, 60, 0.8), 0 0 30px rgba(220, 20, 60, 0.6); }
         }
 
         .description {
@@ -141,7 +155,7 @@
         }
 
         .login-button {
-            background: linear-gradient(45deg, #00ffff, #0088ff);
+            background: linear-gradient(45deg, #dc143c, #ff4040);
             color: white;
             padding: 15px 30px;
             border: none;
@@ -153,14 +167,14 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 20px rgba(220, 20, 60, 0.3);
             position: relative;
             overflow: hidden;
         }
 
         .login-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            box-shadow: 0 0 30px rgba(220, 20, 60, 0.5);
         }
 
         .discord-icon {
@@ -172,12 +186,12 @@
 </head>
 <body>
     <div class="background"></div>
-    <div class="grid"></div>
     <div class="login-container">
         <div class="login-card">
-            <h1 class="title">¡Únete al Poder!</h1>
+            <div class="christmas-icon">🎄</div>
+            <h1 class="title">¡Feliz Navidad!</h1>
             <p class="description">
-                Alcanza tu máximo potencial en nuestra comunidad exclusiva
+                Únete a nuestra comunidad festiva y descubre contenido exclusivo
             </p>
             <button id="loginButton" class="login-button">
                 <svg class="discord-icon" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -188,54 +202,37 @@
         </div>
     </div>
 
-  <script>
-    // Configuración
+    <script>
+        // Configuración
     const BACKEND_URL = 'https://mipolla.onrender.com';
     const CLIENT_ID = '1320804798764679288';
     const FRONTEND_URL = 'https://pebeeee.vercel.app/'; // Actualiza con tu URL de Vercel
     const REDIRECT_URI = `${BACKEND_URL}/api/auth/discord/callback`;
 
-    // Verificar si ya hay sesión
-    function checkSession() {
-        const token = localStorage.getItem('discord_token');
-        const userData = localStorage.getItem('user_data');
-        
-        if (token && userData) {
-            window.location.href = '/dashboard.html';
-        }
-    }
+        // Crear efecto de nieve
+        function createSnowflakes() {
+            const container = document.body;
+            const snowflakeCount = 50;
 
-    // Verificar respuesta del login
-    function checkLoginResponse() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get('token');
-        const userData = urlParams.get('user');
-
-        if (token && userData) {
-            try {
-                // Guardar datos de sesión
-                localStorage.setItem('discord_token', token);
-                localStorage.setItem('user_data', userData);
-                
-                // Redirigir al dashboard
-                window.location.href = '/dashboard.html';
-            } catch (error) {
-                console.error('Error al guardar datos:', error);
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.style.left = `${Math.random() * 100}vw`;
+                const duration = 5 + Math.random() * 10;
+                const delay = Math.random() * 5;
+                snowflake.style.animation = `snowfall ${duration}s ${delay}s linear infinite`;
+                container.appendChild(snowflake);
             }
         }
-    }
 
-    // Iniciar sesión con Discord
-    document.getElementById('loginButton').addEventListener('click', () => {
-        const DISCORD_URL = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=identify`;
-        window.location.href = DISCORD_URL;
-    });
+        // Iniciar sesión con Discord
+        document.getElementById('loginButton').addEventListener('click', () => {
+            const DISCORD_URL = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=identify`;
+            window.location.href = DISCORD_URL;
+        });
 
-    // Verificar al cargar la página
-    window.addEventListener('load', () => {
-        checkSession();
-        checkLoginResponse();
-    });
-</script>
+        // Crear nieve al cargar
+        createSnowflakes();
+    </script>
 </body>
 </html>
