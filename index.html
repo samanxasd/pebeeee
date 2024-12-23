@@ -203,33 +203,57 @@
     </div>
 
     <script>
-        // Configuración
+  // En index.html
+<script>
+    // Configuración
     const BACKEND_URL = 'https://mipolla.onrender.com';
     const CLIENT_ID = '1320804798764679288';
-    const FRONTEND_URL = 'https://pebeeee.vercel.app/'; // Actualiza con tu URL de Vercel
     const REDIRECT_URI = `${BACKEND_URL}/api/auth/discord/callback`;
 
-        // Crear efecto de nieve
-        function createSnowflakes() {
-            const container = document.body;
-            const snowflakeCount = 50;
-
-            for (let i = 0; i < snowflakeCount; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.className = 'snowflake';
-                snowflake.style.left = `${Math.random() * 100}vw`;
-                const duration = 5 + Math.random() * 10;
-                const delay = Math.random() * 5;
-                snowflake.style.animation = `snowfall ${duration}s ${delay}s linear infinite`;
-                container.appendChild(snowflake);
-            }
+    // Verificar si ya hay sesión
+    function checkSession() {
+        const token = localStorage.getItem('discord_token');
+        const userData = localStorage.getItem('user_data');
+        
+        if (token && userData) {
+            window.location.href = '/dashboard.html';
+            return;
         }
+    }
 
-        // Iniciar sesión con Discord
-        document.getElementById('loginButton').addEventListener('click', () => {
-            const DISCORD_URL = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=identify`;
-            window.location.href = DISCORD_URL;
-        });
+    // Verificar respuesta del login
+    function checkLoginResponse() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        const userData = urlParams.get('user');
+
+        if (token && userData) {
+            console.log('Token recibido:', token);
+            console.log('Datos de usuario recibidos:', userData);
+            
+            // Guardar datos de sesión
+            localStorage.setItem('discord_token', token);
+            localStorage.setItem('user_data', userData);
+            
+            // Redirigir al dashboard
+            window.location.href = '/dashboard.html';
+            return;
+        }
+    }
+
+    // Iniciar sesión con Discord
+    document.getElementById('loginButton').addEventListener('click', () => {
+        const DISCORD_URL = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=identify`;
+        window.location.href = DISCORD_URL;
+    });
+
+    // Verificar al cargar la página
+    window.addEventListener('load', () => {
+        console.log('Verificando sesión...');
+        checkSession();
+        checkLoginResponse();
+    });
+
 
         // Crear nieve al cargar
         createSnowflakes();
