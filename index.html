@@ -188,15 +188,48 @@
         </div>
     </div>
 
-    <script>
-        const BACKEND_URL = 'https://mipolla.onrender.com';
-        const CLIENT_ID = '1320804798764679288';
-        const REDIRECT_URI = `${BACKEND_URL}/api/auth/discord/callback`;
+   // En el script de index.html (tu página de login)
+<script>
+    // Configuración
+    const BACKEND_URL = 'https://mipolla.onrender.com';
+    const CLIENT_ID = 'TU_CLIENT_ID_DE_DISCORD';
+    const REDIRECT_URI = `${BACKEND_URL}/api/auth/discord/callback`;
 
-        document.getElementById('loginButton').addEventListener('click', () => {
-            const DISCORD_URL = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=identify`;
-            window.location.href = DISCORD_URL;
-        });
-    </script>
+    // Verificar si ya hay sesión
+    function checkSession() {
+        const token = localStorage.getItem('discord_token');
+        const userData = localStorage.getItem('user_data');
+        
+        if (token && userData) {
+            window.location.href = '/dashboard.html';
+        }
+    }
+
+    // Verificar respuesta del login
+    function checkLoginResponse() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        const userData = urlParams.get('user');
+
+        if (token && userData) {
+            // Guardar datos de sesión
+            localStorage.setItem('discord_token', token);
+            localStorage.setItem('user_data', userData);
+            
+            // Redirigir al dashboard
+            window.location.href = '/dashboard.html';
+        }
+    }
+
+    // Iniciar sesión con Discord
+    document.getElementById('loginButton').addEventListener('click', () => {
+        const DISCORD_URL = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=identify`;
+        window.location.href = DISCORD_URL;
+    });
+
+    // Verificar al cargar la página
+    checkSession();
+    checkLoginResponse();
+</script>
 </body>
 </html>
