@@ -188,11 +188,11 @@
         </div>
     </div>
 
-   // En el script de index.html (tu página de login)
-<script>
+  <script>
     // Configuración
     const BACKEND_URL = 'https://mipolla.onrender.com';
-    const CLIENT_ID = '1320804798764679288';
+    const CLIENT_ID = 'T1320804798764679288';
+    const FRONTEND_URL = 'https://pebeeee.vercel.app/'; // Actualiza con tu URL de Vercel
     const REDIRECT_URI = `${BACKEND_URL}/api/auth/discord/callback`;
 
     // Verificar si ya hay sesión
@@ -212,12 +212,16 @@
         const userData = urlParams.get('user');
 
         if (token && userData) {
-            // Guardar datos de sesión
-            localStorage.setItem('discord_token', token);
-            localStorage.setItem('user_data', userData);
-            
-            // Redirigir al dashboard
-            window.location.href = '/dashboard.html';
+            try {
+                // Guardar datos de sesión
+                localStorage.setItem('discord_token', token);
+                localStorage.setItem('user_data', userData);
+                
+                // Redirigir al dashboard
+                window.location.href = '/dashboard.html';
+            } catch (error) {
+                console.error('Error al guardar datos:', error);
+            }
         }
     }
 
@@ -228,8 +232,10 @@
     });
 
     // Verificar al cargar la página
-    checkSession();
-    checkLoginResponse();
+    window.addEventListener('load', () => {
+        checkSession();
+        checkLoginResponse();
+    });
 </script>
 </body>
 </html>
