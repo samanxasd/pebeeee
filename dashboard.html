@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Christmas Dashboard</title>
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -13,47 +14,40 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #000;
+            background: linear-gradient(135deg, #0f0f1f, #1a1a2e);
             color: white;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        /* Efecto de nieve */
-        .snowflake {
+        #particles-js {
             position: fixed;
-            width: 4px;
-            height: 4px;
-            background: white;
-            border-radius: 50%;
-            filter: blur(1px);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Fondo con gradiente */
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 50% 50%, 
-                rgba(220, 20, 60, 0.1) 0%, 
-                transparent 50%);
-            z-index: 0;
+            z-index: 1;
         }
 
         /* Navbar */
         .navbar {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
             padding: 1rem;
-            border-bottom: 1px solid rgba(220, 20, 60, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 100;
+            animation: navbarAppear 0.5s ease forwards;
+        }
+
+        @keyframes navbarAppear {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .nav-content {
@@ -69,161 +63,168 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            animation: slideIn 0.5s ease forwards;
         }
 
         .avatar {
             width: 45px;
             height: 45px;
             border-radius: 50%;
-            border: 2px solid #dc143c;
-            box-shadow: 0 0 10px rgba(220, 20, 60, 0.3);
+            border: 2px solid #6e7bff;
+            box-shadow: 0 0 15px rgba(110, 123, 255, 0.3);
             transition: all 0.3s ease;
         }
 
         .avatar:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(220, 20, 60, 0.5);
+            box-shadow: 0 0 20px rgba(110, 123, 255, 0.5);
         }
 
         .username {
-            color: #dc143c;
+            background: linear-gradient(45deg, #6e7bff, #4f46e5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-weight: bold;
-            text-shadow: 0 0 10px rgba(220, 20, 60, 0.3);
+            font-size: 1.1em;
         }
 
         .logout-button {
-            background: rgba(220, 20, 60, 0.2);
+            background: linear-gradient(45deg, #ff4646, #e53e3e);
             color: white;
-            padding: 0.5rem 1.5rem;
+            padding: 0.6rem 1.5rem;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(229, 62, 62, 0.3);
         }
 
         .logout-button:hover {
-            background: rgba(220, 20, 60, 0.4);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(229, 62, 62, 0.4);
         }
 
         /* Contenido principal */
         .main-content {
+            position: relative;
+            z-index: 2;
             padding: 120px 20px 40px;
             max-width: 1200px;
             margin: 0 auto;
-            position: relative;
-            z-index: 2;
         }
 
         /* Mensaje de bienvenida */
         .welcome-message {
             text-align: center;
-            margin-bottom: 40px;
-            animation: fadeInUp 0.8s ease-out;
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards 0.3s;
         }
 
         .welcome-title {
-            font-size: 2.5em;
-            color: #dc143c;
-            margin-bottom: 10px;
-            text-shadow: 0 0 15px rgba(220, 20, 60, 0.4);
+            font-size: 2.8em;
+            background: linear-gradient(to right, #fff, #a0a0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(160, 160, 255, 0.3);
         }
 
         .welcome-subtitle {
             color: rgba(255, 255, 255, 0.8);
             font-size: 1.2em;
+            line-height: 1.6;
         }
 
         /* Grid de enlaces */
         .links-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            animation: fadeIn 1s ease-out;
+            gap: 25px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards 0.5s;
         }
 
         .link-card {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(220, 20, 60, 0.2);
-            padding: 25px;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 20px;
             text-align: center;
             transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         .link-card:hover {
             transform: translateY(-5px);
-            border-color: rgba(220, 20, 60, 0.4);
-            box-shadow: 0 0 20px rgba(220, 20, 60, 0.2);
+            border-color: rgba(110, 123, 255, 0.3);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
         }
 
         .link-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            animation: bounce 2s infinite;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            animation: iconFloat 3s ease-in-out infinite;
         }
 
         .link-title {
-            color: #dc143c;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            background: linear-gradient(45deg, #6e7bff, #4f46e5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .link-description {
             color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
 
         .link-button {
             display: inline-block;
-            background: linear-gradient(45deg, #dc143c, #ff4040);
+            background: linear-gradient(45deg, #6e7bff, #4f46e5);
             color: white;
-            padding: 0.8rem 1.5rem;
+            padding: 0.8rem 1.8rem;
             border-radius: 50px;
             text-decoration: none;
             transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(110, 123, 255, 0.3);
         }
 
         .link-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(220, 20, 60, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(110, 123, 255, 0.4);
         }
 
         /* Animaciones */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes snowfall {
-            0% {
-                transform: translateY(-100vh) translateX(0);
+        @keyframes slideIn {
+            from {
+                transform: translateX(-20px);
                 opacity: 0;
             }
-            20% {
+            to {
+                transform: translateX(0);
                 opacity: 1;
             }
-            100% {
-                transform: translateY(100vh) translateX(20px);
-                opacity: 0;
-            }
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         @media (max-width: 768px) {
@@ -237,117 +238,8 @@
             }
 
             .welcome-title {
-                font-size: 2em;
+                font-size: 2.2em;
             }
         }
     </style>
 </head>
-<body>
-    <div class="background"></div>
-
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="nav-content">
-            <div class="user-profile">
-                <img id="userAvatar" src="" alt="Avatar" class="avatar">
-                <span id="username" class="username">Cargando...</span>
-            </div>
-            <button id="logoutButton" class="logout-button">Cerrar sesión</button>
-        </div>
-    </nav>
-
-    <!-- Contenido principal -->
-    <main class="main-content">
-        <!-- Mensaje de bienvenida -->
-        <div class="welcome-message">
-            <h1 class="welcome-title">¡Bienvenido, <span id="welcomeUsername">Usuario</span>! 🎄</h1>
-            <p class="welcome-subtitle">Disfruta de nuestra comunidad navideña</p>
-        </div>
-
-        <!-- Grid de enlaces -->
-        <div class="links-grid">
-            <div class="link-card">
-                <div class="link-icon">🎮</div>
-                <h3 class="link-title">Discord</h3>
-                <p class="link-description">Únete a nuestro servidor principal</p>
-                <a href="#" class="link-button">Unirse</a>
-            </div>
-            
-            <div class="link-card">
-                <div class="link-icon">📱</div>
-                <h3 class="link-title">Telegram</h3>
-                <p class="link-description">Noticias y actualizaciones</p>
-                <a href="#" class="link-button">Seguir</a>
-            </div>
-            
-            <div class="link-card">
-                <div class="link-icon">📸</div>
-                <h3 class="link-title">Instagram</h3>
-                <p class="link-description">Contenido exclusivo</p>
-                <a href="#" class="link-button">Seguir</a>
-            </div>
-            
-            <div class="link-card">
-                <div class="link-icon">🎅</div>
-                <h3 class="link-title">Twitter</h3>
-                <p class="link-description">Últimas novedades</p>
-                <a href="#" class="link-button">Seguir</a>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        // Crear efecto de nieve
-        function createSnowflakes() {
-            const container = document.body;
-            const snowflakeCount = 50;
-
-            for (let i = 0; i < snowflakeCount; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.className = 'snowflake';
-                snowflake.style.left = `${Math.random() * 100}vw`;
-                const duration = 5 + Math.random() * 10;
-                const delay = Math.random() * 5;
-                snowflake.style.animation = `snowfall ${duration}s ${delay}s linear infinite`;
-                container.appendChild(snowflake);
-            }
-        }
-
-        // En dashboard.html
-<script>
-    // Verificar autenticación al cargar
-    window.addEventListener('load', () => {
-        const token = localStorage.getItem('discord_token');
-        const userData = localStorage.getItem('user_data');
-        
-        console.log('Token:', token);
-        console.log('User Data:', userData);
-
-        if (!token || !userData) {
-            console.log('No hay sesión, redirigiendo al login');
-            window.location.href = '/';
-            return;
-        }
-
-        try {
-            const user = JSON.parse(userData);
-            document.getElementById('username').textContent = user.username;
-            document.getElementById('welcomeUsername').textContent = user.username;
-            if (user.avatar) {
-                document.getElementById('userAvatar').src = 
-                    `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
-            } else {
-                document.getElementById('userAvatar').src = 
-                    'https://cdn.discordapp.com/embed/avatars/0.png';
-            }
-        } catch (error) {
-            console.error('Error al cargar datos del usuario:', error);
-            window.location.href = '/';
-        }
-    });
-
-        // Crear nieve al cargar
-        createSnowflakes();
-    </script>
-</body>
-</html>
