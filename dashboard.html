@@ -20,6 +20,7 @@
             overflow-x: hidden;
         }
 
+        /* Particles Container */
         #particles-js {
             position: fixed;
             width: 100%;
@@ -27,6 +28,7 @@
             z-index: 1;
         }
 
+        /* Layout Container */
         .dashboard-container {
             position: relative;
             z-index: 2;
@@ -38,7 +40,7 @@
             transition: all 0.3s ease;
         }
 
-        /* Welcome Message Animation */
+        /* Welcome Message */
         .welcome-message {
             position: fixed;
             top: 50%;
@@ -74,6 +76,7 @@
             to {
                 opacity: 0;
                 transform: translate(-50%, -70%);
+                pointer-events: none;
             }
         }
 
@@ -86,6 +89,11 @@
             animation: titleGlow 2s ease-in-out infinite alternate;
         }
 
+        @keyframes titleGlow {
+            from { text-shadow: 0 0 10px rgba(160, 160, 255, 0.5); }
+            to { text-shadow: 0 0 20px rgba(160, 160, 255, 0.8); }
+        }
+
         .welcome-message .logo {
             font-size: 3.5rem;
             margin-bottom: 20px;
@@ -93,7 +101,12 @@
             animation: logoFloat 3s ease-in-out infinite;
         }
 
-        /* Sidebar Styles */
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Sidebar */
         .sidebar {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(20px);
@@ -118,206 +131,511 @@
                 opacity: 1;
             }
         }
-        /* Continuación de estilos */
-        
-        /* Estilos del menú */
-        .menu-list {
-            list-style: none;
-            margin-top: 50px;
-        }
 
-        .menu-item {
-            background: rgba(255, 255, 255, 0.05);
-            margin: 10px 0;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .menu-button {
-            width: 100%;
-            padding: 15px 20px;
-            border: none;
-            background: transparent;
-            color: white;
-            font-size: 1em;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .menu-item:hover {
-            background: rgba(110, 123, 255, 0.1);
-            transform: translateX(5px);
-        }
-
-        .menu-button i {
-            font-size: 1.2em;
-            opacity: 0.8;
-        }
-
-        /* Main Content Area */
-        .main-content {
-            margin-left: 270px;
-            padding: 20px;
-            animation: contentAppear 0.8s ease forwards;
-        }
-
-        @keyframes contentAppear {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Cards Grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        /* Header Area */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px 20px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #6e7bff, #4f46e5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .user-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .user-name {
-            font-weight: 600;
-            background: linear-gradient(to right, #fff, #a0a0ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .user-status {
-            font-size: 0.8em;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* Botón de logout */
-        .logout-button {
-            background: linear-gradient(45deg, #ff6b6b, #ee5253);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .logout-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(238, 82, 83, 0.4);
-        }
-
-        /* Estadísticas y gráficos */
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 20px;
+        .sidebar .logo {
+            font-size: 2.5em;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            animation: logoFloat 3s ease-in-out infinite;
         }
+</style>
+<style>
+    /* Estilos del Menú */
+    .menu-list {
+        list-style: none;
+        margin-top: 20px;
+    }
 
-        .stat-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
-        }
+    .menu-item {
+        margin: 10px 0;
+        transition: all 0.3s ease;
+    }
 
-        .stat-value {
-            font-size: 2em;
-            font-weight: 700;
-            margin: 10px 0;
-            background: linear-gradient(to right, #fff, #a0a0ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .menu-button {
+        width: 100%;
+        padding: 15px 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        color: white;
+        font-size: 1em;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transition: all 0.3s ease;
+    }
 
-        .stat-label {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9em;
+    .menu-button:hover {
+        background: rgba(110, 123, 255, 0.1);
+        transform: translateX(5px);
+        border-color: rgba(110, 123, 255, 0.3);
+    }
+
+    .menu-button.active {
+        background: linear-gradient(45deg, #6e7bff, #4f46e5);
+        border-color: transparent;
+    }
+
+    .menu-button i {
+        font-size: 1.2em;
+        opacity: 0.9;
+    }
+
+    /* Main Content Area */
+    .main-content {
+        margin-left: 270px;
+        padding: 20px;
+        animation: contentAppear 0.8s ease forwards;
+    }
+
+    @keyframes contentAppear {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
         }
-    </style>
-</head>
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Header Area */
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .user-avatar {
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(45deg, #6e7bff, #4f46e5);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.2em;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .user-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .user-name {
+        font-weight: 600;
+        font-size: 1.1em;
+        background: linear-gradient(to right, #fff, #a0a0ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .user-status {
+        font-size: 0.9em;
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .logout-button {
+        background: linear-gradient(45deg, #ff6b6b, #ee5253);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9em;
+    }
+
+    .logout-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(238, 82, 83, 0.4);
+    }
+
+    /* Stats Area */
+    .stats-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        border-radius: 16px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    .stat-value {
+        font-size: 2em;
+        font-weight: 700;
+        margin: 10px 0;
+        background: linear-gradient(to right, #fff, #a0a0ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .stat-label {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9em;
+    }
+
+    /* Checker Area Styles */
+    .checker-container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+
+    .checker-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .checker-icon {
+        font-size: 2em;
+        background: linear-gradient(45deg, #6e7bff, #4f46e5);
+        padding: 15px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(110, 123, 255, 0.3);
+    }
+
+    .checker-title {
+        font-size: 1.8em;
+        font-weight: 600;
+        background: linear-gradient(to right, #fff, #a0a0ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+</style>
+<style>
+    /* Estilos para el área de input y opciones */
+    .checker-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .input-area {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 15px;
+        padding: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .input-area h3 {
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 15px;
+        font-size: 1.1em;
+    }
+
+    .checker-textarea {
+        width: 100%;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 15px;
+        color: white;
+        font-family: 'Consolas', monospace;
+        font-size: 0.9em;
+        resize: none;
+        transition: all 0.3s ease;
+    }
+
+    .checker-textarea:focus {
+        outline: none;
+        border-color: #6e7bff;
+        box-shadow: 0 0 10px rgba(110, 123, 255, 0.2);
+    }
+
+    .checker-textarea::placeholder {
+        color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Área de opciones */
+    .options-area {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 15px;
+        padding: 20px;
+    }
+
+    .options-area h3 {
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 15px;
+        font-size: 1.1em;
+    }
+
+    .options-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .option-item {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 12px 15px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .option-item:hover {
+        background: rgba(110, 123, 255, 0.1);
+        transform: translateX(5px);
+    }
+
+    .option-item input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: #6e7bff;
+    }
+
+    /* Botones de acción */
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .check-button {
+        flex: 2;
+        background: linear-gradient(45deg, #6e7bff, #4f46e5);
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 12px;
+        font-size: 1.1em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .check-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(110, 123, 255, 0.4);
+    }
+
+    .check-button i {
+        font-size: 1.2em;
+    }
+
+    .clear-button {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 15px;
+        border-radius: 12px;
+        font-size: 1.1em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .clear-button:hover {
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Área de resultados */
+    .results-area {
+        margin-top: 30px;
+        display: none;
+    }
+
+    .results-area.active {
+        display: block;
+        animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .results-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .results-title {
+        font-size: 1.4em;
+        color: #fff;
+    }
+
+    .results-stats {
+        display: flex;
+        gap: 15px;
+    }
+
+    .stat-item {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 8px 15px;
+        border-radius: 50px;
+        font-size: 0.9em;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .stat-item.live {
+        color: #4cd137;
+        border: 1px solid rgba(76, 209, 55, 0.3);
+    }
+
+    .stat-item.dead {
+        color: #ff6b6b;
+        border: 1px solid rgba(255, 107, 107, 0.3);
+    }
+
+    /* Lista de resultados */
+    .results-list {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 15px;
+        padding: 20px;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .results-list::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .results-list::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+    }
+
+    .results-list::-webkit-scrollbar-thumb {
+        background: rgba(110, 123, 255, 0.5);
+        border-radius: 4px;
+    }
+
+    .result-item {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .result-item:hover {
+        transform: translateX(5px);
+    }
+
+    .result-item.live {
+        border-left: 4px solid #4cd137;
+    }
+
+    .result-item.dead {
+        border-left: 4px solid #ff6b6b;
+    }
+
+    /* Loading overlay */
+    .loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 20px;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+    }
+
+    .loading-overlay.active {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .loader {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #6e7bff;
+        animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+</style>
 <body>
+    <!-- Particles Background -->
     <div id="particles-js"></div>
-    
-    <!-- Mensaje de bienvenida inicial -->
+
+    <!-- Welcome Message -->
     <div class="welcome-message">
         <div class="logo">❄️</div>
         <h1>¡Bienvenido de nuevo!</h1>
         <p id="welcomeUserName"></p>
     </div>
 
+    <!-- Dashboard Container -->
     <div class="dashboard-container">
         <!-- Sidebar -->
         <nav class="sidebar">
             <div class="logo">❄️</div>
             <ul class="menu-list">
                 <li class="menu-item">
-                    <button class="menu-button" data-section="cc-checker">
+                    <button class="menu-button active" data-section="cc-checker">
                         <i>💳</i> CC Checker
                     </button>
                 </li>
@@ -358,23 +676,21 @@
             <!-- Stats -->
             <div class="stats-container">
                 <div class="stat-card">
-                    <div class="stat-value">24</div>
-                    <div class="stat-label">Checks Realizados</div>
+                    <div class="stat-value" id="totalChecks">0</div>
+                    <div class="stat-label">Checks Totales</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">8</div>
+                    <div class="stat-value" id="totalHits">0</div>
                     <div class="stat-label">Hits Totales</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">92%</div>
-                    <div class="stat-label">Precisión</div>
+                    <div class="stat-value" id="successRate">0%</div>
+                    <div class="stat-label">Tasa de Éxito</div>
                 </div>
             </div>
 
-            <!-- Dynamic Content Sections -->
-            <div class="cards-grid" id="contentArea">
-                <!-- El contenido se cargará dinámicamente -->
-            </div>
+            <!-- Dynamic Content Area -->
+            <div id="contentArea"></div>
         </main>
     </div>
 
@@ -423,10 +739,11 @@
             }
         );
 
-        // Manejo de sesión y datos de usuario
+        // Funciones principales
         document.addEventListener('DOMContentLoaded', () => {
-            const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
+            // Verificar sesión
             const token = localStorage.getItem('discord_token');
+            const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
 
             if (!token || !userData) {
                 window.location.href = '/index.html';
@@ -451,51 +768,149 @@
                 window.location.href = '/index.html';
             });
 
-            // Manejadores de menú
-            const menuButtons = document.querySelectorAll('.menu-button');
-            const contentArea = document.getElementById('contentArea');
-
-            menuButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const section = button.dataset.section;
-                    loadSection(section);
-                });
-            });
-
-            function loadSection(section) {
-                // Aquí puedes agregar la lógica para cargar el contenido de cada sección
-                const sectionContent = {
-                    'cc-checker': `
-                        <div class="card">
-                            <h2>CC Checker</h2>
-                            <textarea placeholder="Ingresa las tarjetas aquí..."></textarea>
-                            <button class="check-button">Verificar</button>
-                        </div>
-                    `,
-                    'disney-checker': `
-                        <div class="card">
-                            <h2>Disney Checker</h2>
-                            <textarea placeholder="Ingresa las cuentas aquí..."></textarea>
-                            <button class="check-button">Verificar</button>
-                        </div>
-                    `,
-                    // Agregar más secciones según necesites
-                };
-
-                contentArea.innerHTML = sectionContent[section] || 'Sección no encontrada';
-            }
-
             // Cargar sección inicial
             loadSection('cc-checker');
+
+            // Event listeners para el menú
+            document.querySelectorAll('.menu-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    // Remover clase active de todos los botones
+                    document.querySelectorAll('.menu-button').forEach(btn => 
+                        btn.classList.remove('active'));
+                    // Agregar clase active al botón clickeado
+                    e.target.classList.add('active');
+                    // Cargar sección
+                    loadSection(e.target.dataset.section);
+                });
+            });
         });
 
-        // Remover mensaje de bienvenida después de la animación
-        setTimeout(() => {
-            const welcomeMessage = document.querySelector('.welcome-message');
-            if (welcomeMessage) {
-                welcomeMessage.remove();
-            }
-        }, 4000);
+        // Función para cargar secciones
+        function loadSection(section) {
+            const contentArea = document.getElementById('contentArea');
+            const checkerContent = `
+                <div class="checker-container">
+                    <div class="checker-header">
+                        <div class="checker-icon">💳</div>
+                        <h2 class="checker-title">${section.toUpperCase()}</h2>
+                    </div>
+                    
+                    <div class="checker-content">
+                        <div class="input-area">
+                            <h3>Ingresa las tarjetas (1 por línea)</h3>
+                            <textarea class="checker-textarea" 
+                                placeholder="4242424242424242|12|2025|123"></textarea>
+                        </div>
+                        
+                        <div class="options-area">
+                            <h3>Opciones</h3>
+                            <div class="options-list">
+                                <label class="option-item">
+                                    <input type="checkbox" checked>
+                                    <span>Verificar CVV</span>
+                                </label>
+                                <label class="option-item">
+                                    <input type="checkbox" checked>
+                                    <span>Verificar Fecha</span>
+                                </label>
+                                <label class="option-item">
+                                    <input type="checkbox">
+                                    <span>Modo Estricto</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="check-button">
+                            <i>⚡</i> Iniciar Check
+                        </button>
+                        <button class="clear-button">Limpiar</button>
+                    </div>
+
+                    <div class="results-area">
+                        <div class="results-header">
+                            <div class="results-title">Resultados</div>
+                            <div class="results-stats">
+                                <span class="stat-item live">
+                                    Lives: <span id="liveCount">0</span>
+                                </span>
+                                <span class="stat-item dead">
+                                    Deads: <span id="deadCount">0</span>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="results-list" id="resultsList"></div>
+                    </div>
+
+                    <div class="loading-overlay">
+                        <div class="loader"></div>
+                    </div>
+                </div>
+            `;
+
+            contentArea.innerHTML = checkerContent;
+
+            // Agregar event listeners después de cargar el contenido
+            const checkButton = contentArea.querySelector('.check-button');
+            const clearButton = contentArea.querySelector('.clear-button');
+            const textarea = contentArea.querySelector('.checker-textarea');
+            const resultsArea = contentArea.querySelector('.results-area');
+            const loadingOverlay = contentArea.querySelector('.loading-overlay');
+            const resultsList = contentArea.querySelector('#resultsList');
+
+            checkButton.addEventListener('click', () => {
+                if (!textarea.value.trim()) {
+                    alert('Por favor, ingresa algunas tarjetas para verificar');
+                    return;
+                }
+
+                loadingOverlay.classList.add('active');
+                
+                // Simulación de check (reemplazar con tu lógica real)
+                setTimeout(() => {
+                    loadingOverlay.classList.remove('active');
+                    resultsArea.classList.add('active');
+                    
+                    // Ejemplo de resultado (reemplazar con resultados reales)
+                    const cards = textarea.value.split('\n');
+                    cards.forEach(card => {
+                        if (card.trim()) {
+                            const isLive = Math.random() > 0.5;
+                            const resultItem = document.createElement('div');
+                            resultItem.className = `result-item ${isLive ? 'live' : 'dead'}`;
+                            resultItem.innerHTML = `
+                                <span>${card}</span>
+                                <span>${isLive ? '✅ Live' : '❌ Dead'}</span>
+                            `;
+                            resultsList.appendChild(resultItem);
+                        }
+                    });
+
+                    // Actualizar contadores
+                    updateStats();
+                }, 2000);
+            });
+
+            clearButton.addEventListener('click', () => {
+                textarea.value = '';
+                resultsArea.classList.remove('active');
+                resultsList.innerHTML = '';
+            });
+        }
+
+        function updateStats() {
+            // Actualizar estadísticas (implementar según necesidades)
+            const totalChecks = document.getElementById('totalChecks');
+            const totalHits = document.getElementById('totalHits');
+            const successRate = document.getElementById('successRate');
+            
+            // Ejemplo de actualización
+            const current = parseInt(totalChecks.textContent);
+            totalChecks.textContent = current + 1;
+            // Actualizar otros stats según necesidad
+        }
     </script>
 </body>
 </html>
