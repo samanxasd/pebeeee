@@ -4,729 +4,366 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #f5f6fa;
+            --text-color: #2d3436;
+            --transition-speed: 0.3s;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Menú lateral */
-.sidebar {
-    position: fixed;
-    left: -300px;
-    top: 0;
-    width: 300px;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    z-index: 1000;
-    transition: 0.3s ease;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 80px 20px 20px;
-}
-
-.sidebar.active {
-    left: 0;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-}
-
-.menu-button {
-    position: fixed;
-    left: 20px;
-    top: 20px;
-    z-index: 1001;
-    background: transparent;
-    border: none;
-    color: white;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 8px;
-    border-radius: 8px;
-    transition: 0.3s ease;
-}
-
-.menu-button:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.menu-button span {
-    width: 100%;
-    height: 2px;
-    background: white;
-    transition: 0.3s ease;
-}
-
-.menu-button.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-.menu-button.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.menu-button.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-}
-
-/* Categorías del menú */
-.menu-category {
-    margin-bottom: 20px;
-}
-
-.menu-category-title {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.9em;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.menu-item {
-    display: flex;
-    align-items: center;
-    padding: 12px 15px;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: 0.3s ease;
-    margin-bottom: 5px;
-}
-
-.menu-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.menu-item i {
-    margin-right: 10px;
-    font-size: 1.2em;
-}
-
-/* Panel de configuración */
-.settings-panel {
-    position: fixed;
-    right: -300px;
-    top: 0;
-    width: 300px;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    z-index: 1000;
-    transition: 0.3s ease;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 80px 20px 20px;
-}
-
-.settings-panel.active {
-    right: 0;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-}
-
-.settings-button {
-    position: fixed;
-    right: 20px;
-    top: 20px;
-    z-index: 1001;
-    background: transparent;
-    border: none;
-    color: white;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    transition: 0.3s ease;
-}
-
-.settings-button:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-/* Controles de color */
-.color-control {
-    margin-bottom: 20px;
-}
-
-.color-control label {
-    display: block;
-    margin-bottom: 8px;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.color-control input[type="color"] {
-    width: 100%;
-    height: 40px;
-    border: none;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    cursor: pointer;
-}
-
-/* Overlay para cerrar menús */
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-    z-index: 999;
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.3s ease;
-}
-
-.overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f0f1f, #1a1a2e);
-            color: white;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, var(--background-color), #e0e0e0);
             min-height: 100vh;
         }
 
-        #particles-js {
+        /* Overlay */
+        .overlay {
+            display: none;
             position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 98;
         }
 
-        /* Navbar */
-        .navbar {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            padding: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        .overlay.active {
+            display: block;
+        }
+
+        /* Sidebar */
+        .sidebar {
             position: fixed;
-            width: 100%;
+            left: -250px;
             top: 0;
+            width: 250px;
+            height: 100%;
+            background: white;
+            z-index: 99;
+            transition: var(--transition-speed);
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        /* Menú y botones */
+        .menu-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
             z-index: 100;
-            animation: navbarAppear 0.5s ease forwards;
-        }
-
-        @keyframes navbarAppear {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .nav-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            animation: slideIn 0.5s ease forwards;
-        }
-
-        .avatar {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: 2px solid #6e7bff;
-            box-shadow: 0 0 15px rgba(110, 123, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .avatar:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(110, 123, 255, 0.5);
-        }
-
-        .username {
-            background: linear-gradient(45deg, #6e7bff, #4f46e5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-
-        .logout-button {
-            background: linear-gradient(45deg, #ff4646, #e53e3e);
-            color: white;
-            padding: 0.6rem 1.5rem;
+            background: var(--primary-color);
             border: none;
-            border-radius: 50px;
+            border-radius: 5px;
+            padding: 10px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(229, 62, 62, 0.3);
+            color: white;
         }
 
-        .logout-button:hover {
+        .settings-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: var(--secondary-color);
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            color: white;
+        }
+
+        /* Panel de configuración */
+        .settings-panel {
+            position: fixed;
+            right: -300px;
+            top: 0;
+            width: 300px;
+            height: 100%;
+            background: white;
+            z-index: 99;
+            transition: var(--transition-speed);
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .settings-panel.active {
+            right: 0;
+        }
+
+        /* Elementos del menú */
+        .menu-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 50px;
+        }
+
+        .menu-item {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: none;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition-speed);
+            font-size: 14px;
+        }
+
+        .menu-item:hover {
+            background: var(--secondary-color);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(229, 62, 62, 0.4);
+        }
+
+        /* Color Picker */
+        .color-picker {
+            margin: 20px 0;
+        }
+
+        .color-picker label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: bold;
+        }
+
+        .color-picker input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
         }
 
         /* Contenido principal */
         .main-content {
-            position: relative;
-            z-index: 2;
-            padding: 120px 20px 40px;
-            max-width: 1200px;
-            margin: 0 auto;
+            margin-left: 20px;
+            margin-right: 20px;
+            padding: 20px;
+            margin-top: 60px;
         }
 
-        /* Mensaje de bienvenida */
-        .welcome-message {
-            text-align: center;
-            margin-bottom: 50px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s ease forwards 0.3s;
+        /* Títulos */
+        h3 {
+            color: var(--text-color);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
         }
 
-        .welcome-title {
-            font-size: 2.8em;
-            background: linear-gradient(to right, #fff, #a0a0ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            text-shadow: 0 0 20px rgba(160, 160, 255, 0.3);
-        }
-
-        .welcome-subtitle {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.2em;
-            line-height: 1.6;
-        }
-
-        /* Grid de enlaces */
-        .links-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s ease forwards 0.5s;
-        }
-
-        .link-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        .link-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(110, 123, 255, 0.3);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .link-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-            animation: iconFloat 3s ease-in-out infinite;
-        }
-
-        .link-title {
-            font-size: 1.4rem;
-            margin-bottom: 0.8rem;
-            background: linear-gradient(45deg, #6e7bff, #4f46e5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .link-description {
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .link-button {
-            display: inline-block;
-            background: linear-gradient(45deg, #6e7bff, #4f46e5);
-            color: white;
-            padding: 0.8rem 1.8rem;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(110, 123, 255, 0.3);
-        }
-
-        .link-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(110, 123, 255, 0.4);
-        }
-
-        /* Animaciones */
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(-20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-
-        @keyframes iconFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
-            .nav-content {
-                flex-direction: column;
-                gap: 1rem;
+            .sidebar, .settings-panel {
+                width: 100%;
             }
-
-            .main-content {
-                padding-top: 160px;
+            .sidebar {
+                left: -100%;
             }
-
-            .welcome-title {
-                font-size: 2.2em;
+            .settings-panel {
+                right: -100%;
             }
         }
     </style>
 </head>
-
 <body>
-    <div id="particles-js"></div>
-    <!-- Botón de menú -->
-<button class="menu-button" id="menuButton">
-    <span></span>
-    <span></span>
-    <span></span>
-</button>
+    <!-- Overlay -->
+    <div id="overlay" class="overlay"></div>
 
-<!-- Menú lateral -->
-<div class="sidebar" id="sidebar">
-    <div class="menu-category">
-        <h3 class="menu-category-title">Checkers</h3>
-        <a href="#" class="menu-item" id="ccChecker">
-            <i>💳</i> CC Checker
-        </a>
-        <a href="#" class="menu-item" id="disneyChecker">
-            <i>🎬</i> Disney Checker
-        </a>
-        <a href="#" class="menu-item" id="steamChecker">
-            <i>🎮</i> Steam Checker
-        </a>
-    </div>
-    
-    <div class="menu-category">
-        <h3 class="menu-category-title">Generadores</h3>
-        <a href="#" class="menu-item" id="ccGenerator">
-            <i>✨</i> CC Generator
-        </a>
-    </div>
-</div>
+    <!-- Botón del menú -->
+    <button id="menuButton" class="menu-button">☰ Menú</button>
 
-<!-- Botón de configuración -->
-<button class="settings-button" id="settingsButton">
-    <i>⚙️</i>
-</button>
-
-<!-- Panel de configuración -->
-<div class="settings-panel" id="settingsPanel">
-    <h3 class="menu-category-title">Personalización</h3>
-    
-    <div class="color-control">
-        <label>Color Principal</label>
-        <input type="color" id="primaryColor" value="#6e7bff">
-    </div>
-    
-    <div class="color-control">
-        <label>Color Secundario</label>
-        <input type="color" id="secondaryColor" value="#4f46e5">
-    </div>
-    
-    <div class="color-control">
-        <label>Color de Fondo</label>
-        <input type="color" id="backgroundColor" value="#1a1a2e">
-    </div>
-</div>
-
-<!-- Overlay -->
-<div class="overlay" id="overlay"></div>
-
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="nav-content">
-            <div class="user-profile">
-                <img id="userAvatar" src="" alt="Avatar" class="avatar">
-                <span id="username" class="username">Cargando...</span>
-            </div>
-            <button id="logoutButton" class="logout-button">
-                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-            </button>
-        </div>
+    <!-- Sidebar -->
+    <nav id="sidebar" class="sidebar">
+        <ul class="menu-list">
+            <li><button id="ccChecker" class="menu-item">CC Checker</button></li>
+            <li><button id="disneyChecker" class="menu-item">Disney Checker</button></li>
+            <li><button id="steamChecker" class="menu-item">Steam Checker</button></li>
+            <li><button id="ccGenerator" class="menu-item">CC Generator</button></li>
+        </ul>
     </nav>
 
+    <!-- Botón de configuración -->
+    <button id="settingsButton" class="settings-button">⚙️ Ajustes</button>
+
+    <!-- Panel de configuración -->
+    <div id="settingsPanel" class="settings-panel">
+        <h3>Configuración</h3>
+        <div class="color-picker">
+            <label for="primaryColor">Color Primario:</label>
+            <input type="color" id="primaryColor" value="#3498db">
+        </div>
+        <div class="color-picker">
+            <label for="secondaryColor">Color Secundario:</label>
+            <input type="color" id="secondaryColor" value="#2ecc71">
+        </div>
+        <div class="color-picker">
+            <label for="backgroundColor">Color de Fondo:</label>
+            <input type="color" id="backgroundColor" value="#f5f6fa">
+        </div>
+    </div>
+
     <!-- Contenido principal -->
-    <main class="main-content">
-        <!-- Mensaje de bienvenida -->
-        <div class="welcome-message">
-            <h1 class="welcome-title">¡Bienvenido, <span id="welcomeUsername">Usuario</span>! ❄️</h1>
-            <p class="welcome-subtitle">Descubre todo el contenido exclusivo que tenemos para ti</p>
-        </div>
-
-        <!-- Grid de enlaces -->
-        <div class="links-grid">
-            <div class="link-card">
-                <div class="link-icon">💬</div>
-                <h3 class="link-title">Discord</h3>
-                <p class="link-description">Únete a nuestra comunidad y conoce a más miembros</p>
-                <a href="TU_LINK_DISCORD" class="link-button" target="_blank">Unirse ahora</a>
-            </div>
-
-            <div class="link-card">
-                <div class="link-icon">📱</div>
-                <h3 class="link-title">Telegram</h3>
-                <p class="link-description">Recibe notificaciones y actualizaciones instantáneas</p>
-                <a href="TU_LINK_TELEGRAM" class="link-button" target="_blank">Seguir canal</a>
-            </div>
-
-            <div class="link-card">
-                <div class="link-icon">📸</div>
-                <h3 class="link-title">Instagram</h3>
-                <p class="link-description">Explora nuestro contenido visual exclusivo</p>
-                <a href="TU_LINK_INSTAGRAM" class="link-button" target="_blank">Ver perfil</a>
-            </div>
-
-            <div class="link-card">
-                <div class="link-icon">🌟</div>
-                <h3 class="link-title">Twitter</h3>
-                <p class="link-description">Mantente al día con las últimas novedades</p>
-                <a href="TU_LINK_TWITTER" class="link-button" target="_blank">Seguir</a>
-            </div>
-        </div>
+    <main id="mainContent" class="main-content">
+        <!-- Aquí irá el contenido dinámico -->
     </main>
 
     <script>
-        // Configuración de partículas
-        particlesJS('particles-js',
-            {
-                "particles": {
-                    "number": {
-                        "value": 80,
-                        "density": {
-                            "enable": true,
-                            "value_area": 800
-                        }
-                    },
-                    "color": {
-                        "value": "#ffffff"
-                    },
-                    "shape": {
-                        "type": "circle"
-                    },
-                    "opacity": {
-                        "value": 0.5,
-                        "random": true
-                    },
-                    "size": {
-                        "value": 3,
-                        "random": true
-                    },
-                    "move": {
-                        "enable": true,
-                        "speed": 2,
-                        "direction": "bottom",
-                        "straight": false
-                    }
-                },
-                "interactivity": {
-                    "detect_on": "canvas",
-                    "events": {
-                        "onhover": {
-                            "enable": true,
-                            "mode": "repulse"
-                        }
+        document.addEventListener('DOMContentLoaded', () => {
+            // Constantes
+            const CLASSES = {
+                ACTIVE: 'active'
+            };
+
+            // Elementos del DOM
+            const elements = {
+                menuButton: document.getElementById('menuButton'),
+                sidebar: document.getElementById('sidebar'),
+                settingsButton: document.getElementById('settingsButton'),
+                settingsPanel: document.getElementById('settingsPanel'),
+                overlay: document.getElementById('overlay'),
+                primaryColor: document.getElementById('primaryColor'),
+                secondaryColor: document.getElementById('secondaryColor'),
+                backgroundColor: document.getElementById('backgroundColor')
+            };
+
+            // Validar elementos
+            const validateElements = () => {
+                for (const [key, element] of Object.entries(elements)) {
+                    if (!element) {
+                        console.error(`Elemento ${key} no encontrado`);
+                        return false;
                     }
                 }
-            }
-        );
+                return true;
+            };
 
-        // Verificar autenticación
-        function checkAuth() {
-            const token = localStorage.getItem('discord_token');
-            const userData = localStorage.getItem('user_data');
+            if (!validateElements()) return;
 
-            if (!token || !userData) {
-                window.location.href = '/';
-                return;
-            }
+            // Manejadores de eventos para menús
+            const handleMenuClick = () => {
+                elements.menuButton.classList.toggle(CLASSES.ACTIVE);
+                elements.sidebar.classList.toggle(CLASSES.ACTIVE);
+                elements.overlay.classList.toggle(CLASSES.ACTIVE);
+                elements.settingsPanel.classList.remove(CLASSES.ACTIVE);
+            };
 
-            try {
-                const user = JSON.parse(userData);
-                
-                // Actualizar elementos UI
-                document.getElementById('username').textContent = user.username;
-                document.getElementById('welcomeUsername').textContent = user.username;
-                
-                // Configurar avatar
-                if (user.avatar) {
-                    document.getElementById('userAvatar').src = 
-                        `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
-                } else {
-                    document.getElementById('userAvatar').src = 
-                        'https://cdn.discordapp.com/embed/avatars/0.png';
+            const handleSettingsClick = () => {
+                elements.settingsPanel.classList.toggle(CLASSES.ACTIVE);
+                elements.overlay.classList.toggle(CLASSES.ACTIVE);
+                elements.sidebar.classList.remove(CLASSES.ACTIVE);
+                elements.menuButton.classList.remove(CLASSES.ACTIVE);
+            };
+
+            const handleOverlayClick = () => {
+                elements.sidebar.classList.remove(CLASSES.ACTIVE);
+                elements.settingsPanel.classList.remove(CLASSES.ACTIVE);
+                elements.overlay.classList.remove(CLASSES.ACTIVE);
+                elements.menuButton.classList.remove(CLASSES.ACTIVE);
+            };
+
+            // Funciones para el manejo de colores
+            const adjustColor = (hex, amount) => {
+                try {
+                    const color = hex.replace(/^#/, '');
+                    const num = parseInt(color, 16);
+                    const r = Math.min(255, Math.max(0, ((num >> 16) + amount)));
+                    const g = Math.min(255, Math.max(0, (((num >> 8) & 0x00FF) + amount)));
+                    const b = Math.min(255, Math.max(0, ((num & 0x0000FF) + amount)));
+                    return `#${(r << 16 | g << 8 | b).toString(16).padStart(6, '0')}`;
+                } catch (error) {
+                    console.error('Error al ajustar el color:', error);
+                    return hex;
                 }
+            };
 
-                // Añadir efecto de aparición suave a las cards
-                const cards = document.querySelectorAll('.link-card');
-                cards.forEach((card, index) => {
-                    card.style.animation = `fadeInUp 0.5s ease forwards ${0.1 * (index + 1)}s`;
-                });
+            // Debounce
+            const debounce = (func, wait) => {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            };
 
-            } catch (error) {
-                console.error('Error al cargar datos del usuario:', error);
-                window.location.href = '/';
-            }
-        }
+            // Actualizar colores
+            const updateColors = () => {
+                const colors = {
+                    primary: elements.primaryColor.value,
+                    secondary: elements.secondaryColor.value,
+                    background: elements.backgroundColor.value
+                };
 
-        // Manejar cierre de sesión
-        document.getElementById('logoutButton').addEventListener('click', () => {
-            // Añadir animación de salida
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.3s ease';
-            
-            setTimeout(() => {
-                localStorage.removeItem('discord_token');
-                localStorage.removeItem('user_data');
-                window.location.href = '/';
-            }, 300);
-        });
+                document.documentElement.style.setProperty('--primary-color', colors.primary);
+                document.documentElement.style.setProperty('--secondary-color', colors.secondary);
+                document.body.style.background = `linear-gradient(135deg, ${colors.background}, ${adjustColor(colors.background, -20)})`;
 
-        // Inicializar
-        window.addEventListener('load', () => {
-            // Añadir animación de entrada
-            document.body.style.opacity = '0';
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-                document.body.style.transition = 'opacity 0.5s ease';
-            }, 100);
-            
-            checkAuth();
-        });
+                localStorage.setItem('userColors', JSON.stringify(colors));
+            };
 
-        // Añadir efectos hover a las cards
-        document.querySelectorAll('.link-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-10px)';
-                card.style.boxShadow = '0 15px 45px rgba(110, 123, 255, 0.2)';
+            // Cargar colores guardados
+            const loadSavedColors = () => {
+                try {
+                    const savedColors = JSON.parse(localStorage.getItem('userColors'));
+                    if (savedColors) {
+                        elements.primaryColor.value = savedColors.primary;
+                        elements.secondaryColor.value = savedColors.secondary;
+                        elements.backgroundColor.value = savedColors.background;
+                        updateColors();
+                    }
+                } catch (error) {
+                    console.error('Error al cargar colores:', error);
+                }
+            };
+
+            // Checkers
+            const checkers = {
+                ccChecker: () => alert('CC Checker - En desarrollo'),
+                disneyChecker: () => alert('Disney Checker - En desarrollo'),
+                steamChecker: () => alert('Steam Checker - En desarrollo'),
+                ccGenerator: () => alert('CC Generator - En desarrollo')
+            };
+
+            // Event Listeners
+            elements.menuButton.addEventListener('click', handleMenuClick);
+            elements.settingsButton.addEventListener('click', handleSettingsClick);
+            elements.overlay.addEventListener('click', handleOverlayClick);
+
+            const debouncedUpdateColors = debounce(updateColors, 100);
+            elements.primaryColor.addEventListener('input', debouncedUpdateColors);
+            elements.secondaryColor.addEventListener('input', debouncedUpdateColors);
+            elements.backgroundColor.addEventListener('input', debouncedUpdateColors);
+
+            // Configurar checkers
+            Object.entries(checkers).forEach(([id, handler]) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        handler();
+                    });
+                }
             });
 
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0)';
-                card.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1)';
-            });
+            // Inicialización
+            loadSavedColors();
         });
     </script>
-</body> // Manejo del menú lateral
-const menuButton = document.getElementById('menuButton');
-const sidebar = document.getElementById('sidebar');
-const settingsButton = document.getElementById('settingsButton');
-const settingsPanel = document.getElementById('settingsPanel');
-const overlay = document.getElementById('overlay');
-
-menuButton.addEventListener('click', () => {
-    menuButton.classList.toggle('active');
-    sidebar.classList.toggle('active');
-    overlay.classList.toggle('active');
-    settingsPanel.classList.remove('active');
-});
-
-settingsButton.addEventListener('click', () => {
-    settingsPanel.classList.toggle('active');
-    overlay.classList.toggle('active');
-    sidebar.classList.remove('active');
-    menuButton.classList.remove('active');
-});
-
-overlay.addEventListener('click', () => {
-    sidebar.classList.remove('active');
-    settingsPanel.classList.remove('active');
-    overlay.classList.remove('active');
-    menuButton.classList.remove('active');
-});
-
-// Manejo de colores
-const primaryColorInput = document.getElementById('primaryColor');
-const secondaryColorInput = document.getElementById('secondaryColor');
-const backgroundColorInput = document.getElementById('backgroundColor');
-
-function updateColors() {
-    document.documentElement.style.setProperty('--primary-color', primaryColorInput.value);
-    document.documentElement.style.setProperty('--secondary-color', secondaryColorInput.value);
-    document.body.style.background = `linear-gradient(135deg, ${backgroundColorInput.value}, ${adjustColor(backgroundColorInput.value, -20)})`;
-}
-
-function adjustColor(color, amount) {
-    return '#' + color.replace(/^#/, '').replace(/../g, color => ('0'+Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(16)).substr(-2));
-}
-
-primaryColorInput.addEventListener('input', updateColors);
-secondaryColorInput.addEventListener('input', updateColors);
-backgroundColorInput.addEventListener('input', updateColors);
-
-// Manejadores de los checkers
-document.getElementById('ccChecker').addEventListener('click', (e) => {
-    e.preventDefault();
-    // Implementar lógica del CC Checker
-    alert('CC Checker - En desarrollo');
-});
-
-document.getElementById('disneyChecker').addEventListener('click', (e) => {
-    e.preventDefault();
-    // Implementar lógica del Disney Checker
-    alert('Disney Checker - En desarrollo');
-});
-
-document.getElementById('steamChecker').addEventListener('click', (e) => {
-    e.preventDefault();
-    // Implementar lógica del Steam Checker
-    alert('Steam Checker - En desarrollo');
-});
-
-document.getElementById('ccGenerator').addEventListener('click', (e) => {
-    e.preventDefault();
-    // Implementar lógica del CC Generator
-    alert('CC Generator - En desarrollo');
-});
-
+</body>
 </html>
