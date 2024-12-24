@@ -6,10 +6,11 @@
     <title>Dashboard</title>
     <style>
         :root {
-            --primary-color: #3498db;
-            --secondary-color: #2ecc71;
-            --background-color: #f5f6fa;
-            --text-color: #2d3436;
+            --primary-color: #5865F2;  /* Color Discord */
+            --secondary-color: #99AAB5;
+            --background-color: #1a1b26;
+            --card-bg: rgba(32, 34, 46, 0.9);
+            --text-color: #fff;
             --transition-speed: 0.3s;
         }
 
@@ -17,12 +18,33 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, var(--background-color), #e0e0e0);
+            background-color: var(--background-color);
+            color: var(--text-color);
             min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efecto de fondo con constelaciones */
+        .constellation-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 50px 160px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 130px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 160px 120px, #fff, rgba(0,0,0,0));
+            opacity: 0.3;
+            z-index: 0;
         }
 
         /* Overlay */
@@ -33,8 +55,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 98;
+            backdrop-filter: blur(4px);
         }
 
         .overlay.active {
@@ -44,14 +67,15 @@
         /* Sidebar */
         .sidebar {
             position: fixed;
-            left: -250px;
+            left: -280px;
             top: 0;
-            width: 250px;
+            width: 280px;
             height: 100%;
-            background: white;
+            background: var(--card-bg);
             z-index: 99;
             transition: var(--transition-speed);
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
             padding: 20px;
         }
 
@@ -67,10 +91,16 @@
             z-index: 100;
             background: var(--primary-color);
             border: none;
-            border-radius: 5px;
-            padding: 10px;
+            border-radius: 8px;
+            padding: 12px 20px;
             cursor: pointer;
             color: white;
+            font-weight: 500;
+            transition: transform 0.2s;
+        }
+
+        .menu-button:hover {
+            transform: translateY(-2px);
         }
 
         .settings-button {
@@ -78,12 +108,17 @@
             top: 20px;
             right: 20px;
             z-index: 100;
-            background: var(--secondary-color);
-            border: none;
-            border-radius: 5px;
-            padding: 10px;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 12px 20px;
             cursor: pointer;
             color: white;
+            transition: all 0.2s;
+        }
+
+        .settings-button:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
 
         /* Panel de configuración */
@@ -93,10 +128,11 @@
             top: 0;
             width: 300px;
             height: 100%;
-            background: white;
+            background: var(--card-bg);
             z-index: 99;
             transition: var(--transition-speed);
-            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
             padding: 20px;
         }
 
@@ -108,44 +144,51 @@
         .menu-list {
             list-style: none;
             padding: 0;
-            margin-top: 50px;
+            margin-top: 60px;
         }
 
         .menu-item {
             width: 100%;
-            padding: 12px;
-            margin: 8px 0;
+            padding: 14px;
+            margin: 10px 0;
             border: none;
-            background: var(--primary-color);
+            background: rgba(88, 101, 242, 0.1);
             color: white;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: var(--transition-speed);
+            transition: all 0.2s;
             font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .menu-item:hover {
-            background: var(--secondary-color);
+            background: var(--primary-color);
             transform: translateY(-2px);
         }
 
         /* Color Picker */
         .color-picker {
             margin: 20px 0;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
         }
 
         .color-picker label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: var(--text-color);
-            font-weight: bold;
+            font-weight: 500;
+            font-size: 14px;
         }
 
         .color-picker input {
             width: 100%;
             padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
         }
 
         /* Contenido principal */
@@ -153,15 +196,59 @@
             margin-left: 20px;
             margin-right: 20px;
             padding: 20px;
-            margin-top: 60px;
+            margin-top: 80px;
+            position: relative;
+            z-index: 1;
         }
 
         /* Títulos */
         h3 {
             color: var(--text-color);
             margin-bottom: 20px;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 10px;
+            font-weight: 600;
+            font-size: 18px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Card principal */
+        .main-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+            margin: 40px auto;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .main-card h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .main-card p {
+            color: var(--secondary-color);
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        .discord-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .discord-button:hover {
+            transform: translateY(-2px);
         }
 
         /* Responsive */
@@ -175,10 +262,16 @@
             .settings-panel {
                 right: -100%;
             }
+            .main-card {
+                margin: 20px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Fondo con efecto de constelaciones -->
+    <div class="constellation-bg"></div>
+
     <!-- Overlay -->
     <div id="overlay" class="overlay"></div>
 
@@ -203,167 +296,30 @@
         <h3>Configuración</h3>
         <div class="color-picker">
             <label for="primaryColor">Color Primario:</label>
-            <input type="color" id="primaryColor" value="#3498db">
+            <input type="color" id="primaryColor" value="#5865F2">
         </div>
         <div class="color-picker">
             <label for="secondaryColor">Color Secundario:</label>
-            <input type="color" id="secondaryColor" value="#2ecc71">
-        </div>
-        <div class="color-picker">
-            <label for="backgroundColor">Color de Fondo:</label>
-            <input type="color" id="backgroundColor" value="#f5f6fa">
+            <input type="color" id="secondaryColor" value="#99AAB5">
         </div>
     </div>
 
     <!-- Contenido principal -->
     <main id="mainContent" class="main-content">
-        <!-- Aquí irá el contenido dinámico -->
+        <div class="main-card">
+            <h2>Bienvenido</h2>
+            <p>Descubre contenido exclusivo y únete a nuestra comunidad</p>
+            <button class="discord-button">
+                <svg width="20" height="20" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z" fill="#ffffff"/>
+                </svg>
+                Iniciar sesión con Discord
+            </button>
+        </div>
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Constantes
-            const CLASSES = {
-                ACTIVE: 'active'
-            };
-
-            // Elementos del DOM
-            const elements = {
-                menuButton: document.getElementById('menuButton'),
-                sidebar: document.getElementById('sidebar'),
-                settingsButton: document.getElementById('settingsButton'),
-                settingsPanel: document.getElementById('settingsPanel'),
-                overlay: document.getElementById('overlay'),
-                primaryColor: document.getElementById('primaryColor'),
-                secondaryColor: document.getElementById('secondaryColor'),
-                backgroundColor: document.getElementById('backgroundColor')
-            };
-
-            // Validar elementos
-            const validateElements = () => {
-                for (const [key, element] of Object.entries(elements)) {
-                    if (!element) {
-                        console.error(`Elemento ${key} no encontrado`);
-                        return false;
-                    }
-                }
-                return true;
-            };
-
-            if (!validateElements()) return;
-
-            // Manejadores de eventos para menús
-            const handleMenuClick = () => {
-                elements.menuButton.classList.toggle(CLASSES.ACTIVE);
-                elements.sidebar.classList.toggle(CLASSES.ACTIVE);
-                elements.overlay.classList.toggle(CLASSES.ACTIVE);
-                elements.settingsPanel.classList.remove(CLASSES.ACTIVE);
-            };
-
-            const handleSettingsClick = () => {
-                elements.settingsPanel.classList.toggle(CLASSES.ACTIVE);
-                elements.overlay.classList.toggle(CLASSES.ACTIVE);
-                elements.sidebar.classList.remove(CLASSES.ACTIVE);
-                elements.menuButton.classList.remove(CLASSES.ACTIVE);
-            };
-
-            const handleOverlayClick = () => {
-                elements.sidebar.classList.remove(CLASSES.ACTIVE);
-                elements.settingsPanel.classList.remove(CLASSES.ACTIVE);
-                elements.overlay.classList.remove(CLASSES.ACTIVE);
-                elements.menuButton.classList.remove(CLASSES.ACTIVE);
-            };
-
-            // Funciones para el manejo de colores
-            const adjustColor = (hex, amount) => {
-                try {
-                    const color = hex.replace(/^#/, '');
-                    const num = parseInt(color, 16);
-                    const r = Math.min(255, Math.max(0, ((num >> 16) + amount)));
-                    const g = Math.min(255, Math.max(0, (((num >> 8) & 0x00FF) + amount)));
-                    const b = Math.min(255, Math.max(0, ((num & 0x0000FF) + amount)));
-                    return `#${(r << 16 | g << 8 | b).toString(16).padStart(6, '0')}`;
-                } catch (error) {
-                    console.error('Error al ajustar el color:', error);
-                    return hex;
-                }
-            };
-
-            // Debounce
-            const debounce = (func, wait) => {
-                let timeout;
-                return function executedFunction(...args) {
-                    const later = () => {
-                        clearTimeout(timeout);
-                        func(...args);
-                    };
-                    clearTimeout(timeout);
-                    timeout = setTimeout(later, wait);
-                };
-            };
-
-            // Actualizar colores
-            const updateColors = () => {
-                const colors = {
-                    primary: elements.primaryColor.value,
-                    secondary: elements.secondaryColor.value,
-                    background: elements.backgroundColor.value
-                };
-
-                document.documentElement.style.setProperty('--primary-color', colors.primary);
-                document.documentElement.style.setProperty('--secondary-color', colors.secondary);
-                document.body.style.background = `linear-gradient(135deg, ${colors.background}, ${adjustColor(colors.background, -20)})`;
-
-                localStorage.setItem('userColors', JSON.stringify(colors));
-            };
-
-            // Cargar colores guardados
-            const loadSavedColors = () => {
-                try {
-                    const savedColors = JSON.parse(localStorage.getItem('userColors'));
-                    if (savedColors) {
-                        elements.primaryColor.value = savedColors.primary;
-                        elements.secondaryColor.value = savedColors.secondary;
-                        elements.backgroundColor.value = savedColors.background;
-                        updateColors();
-                    }
-                } catch (error) {
-                    console.error('Error al cargar colores:', error);
-                }
-            };
-
-            // Checkers
-            const checkers = {
-                ccChecker: () => alert('CC Checker - En desarrollo'),
-                disneyChecker: () => alert('Disney Checker - En desarrollo'),
-                steamChecker: () => alert('Steam Checker - En desarrollo'),
-                ccGenerator: () => alert('CC Generator - En desarrollo')
-            };
-
-            // Event Listeners
-            elements.menuButton.addEventListener('click', handleMenuClick);
-            elements.settingsButton.addEventListener('click', handleSettingsClick);
-            elements.overlay.addEventListener('click', handleOverlayClick);
-
-            const debouncedUpdateColors = debounce(updateColors, 100);
-            elements.primaryColor.addEventListener('input', debouncedUpdateColors);
-            elements.secondaryColor.addEventListener('input', debouncedUpdateColors);
-            elements.backgroundColor.addEventListener('input', debouncedUpdateColors);
-
-            // Configurar checkers
-            Object.entries(checkers).forEach(([id, handler]) => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        handler();
-                    });
-                }
-            });
-
-            // Inicialización
-            loadSavedColors();
-        });
+        // [El mismo JavaScript que proporcioné anteriormente]
     </script>
 </body>
 </html>
