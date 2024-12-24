@@ -1,1947 +1,1615 @@
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Winter Tools</title>
-
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
     <style>
-
         * {
-
             margin: 0;
-
             padding: 0;
-
             box-sizing: border-box;
-
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
         }
 
         body {
-
             background: #0a0b14;
-
             color: white;
-
             min-height: 100vh;
-
             overflow-x: hidden;
-
         }
 
         #particles-js {
-
             position: fixed;
-
             top: 0;
-
             left: 0;
-
             width: 100%;
-
             height: 100%;
-
             z-index: 1;
-
         }
 
         /* Menú Hamburguesa */
-
         .menu-toggle {
-
             position: fixed;
-
             top: 20px;
-
             left: 20px;
-
             z-index: 1000;
-
             background: rgba(88, 101, 242, 0.1);
-
             border: 1px solid rgba(88, 101, 242, 0.2);
-
             padding: 12px;
-
             border-radius: 12px;
-
             cursor: pointer;
-
             transition: all 0.3s ease;
-
         }
 
         .menu-toggle:hover {
-
             background: rgba(88, 101, 242, 0.2);
-
         }
 
         .menu-toggle .line {
-
             width: 25px;
-
             height: 2px;
-
             background: #5865F2;
-
             margin: 5px 0;
-
             transition: all 0.3s ease;
-
         }
 
         .menu-toggle.active .line:nth-child(1) {
-
             transform: rotate(45deg) translate(5px, 5px);
-
         }
 
         .menu-toggle.active .line:nth-child(2) {
-
             opacity: 0;
-
         }
 
         .menu-toggle.active .line:nth-child(3) {
-
             transform: rotate(-45deg) translate(5px, -5px);
-
         }
 
         /* Sidebar */
-
         .sidebar {
-
             position: fixed;
-
             left: -300px;
-
             top: 0;
-
             width: 300px;
-
             height: 100vh;
-
             background: rgba(15, 16, 25, 0.95);
-
             backdrop-filter: blur(10px);
-
             z-index: 999;
-
             padding: 80px 20px 20px;
-
             transition: all 0.3s ease;
-
             border-right: 1px solid rgba(255, 255, 255, 0.1);
-
         }
 
         .sidebar.active {
-
             left: 0;
-
         }
 
         .menu-section {
-
             margin-bottom: 30px;
-
         }
 
         .menu-section-title {
-
             color: rgba(255, 255, 255, 0.5);
-
             font-size: 0.9em;
-
             text-transform: uppercase;
-
             letter-spacing: 1px;
-
             margin-bottom: 15px;
-
             padding-left: 10px;
-
         }
 
         .menu-items {
-
             list-style: none;
-
         }
 
         .menu-item {
-
             margin-bottom: 10px;
-
         }
 
         .menu-link {
-
             display: flex;
-
             align-items: center;
-
             gap: 12px;
-
             padding: 12px 15px;
-
             color: white;
-
             text-decoration: none;
-
             border-radius: 12px;
-
             transition: all 0.3s ease;
-
             background: rgba(255, 255, 255, 0.05);
-
             border: 1px solid rgba(255, 255, 255, 0.05);
-
             cursor: pointer;
-
         }
 
         .menu-link:hover {
-
             background: rgba(88, 101, 242, 0.1);
-
             border-color: rgba(88, 101, 242, 0.3);
-
             transform: translateX(5px);
-
         }
 
         .menu-link.active {
-
             background: #5865F2;
-
             border-color: #5865F2;
-
         }
 
         .menu-icon {
-
             font-size: 1.2em;
-
         }
 
         /* Overlay */
-
         .menu-overlay {
-
             position: fixed;
-
             top: 0;
-
             left: 0;
-
             width: 100%;
-
             height: 100%;
-
             background: rgba(0, 0, 0, 0.5);
-
             z-index: 998;
-
             opacity: 0;
-
             pointer-events: none;
-
             transition: all 0.3s ease;
-
         }
 
         .menu-overlay.active {
-
             opacity: 1;
-
             pointer-events: all;
-
         }
 
         /* Contenedor principal */
-
         .main-container {
-
             position: relative;
-
             z-index: 2;
-
             min-height: 100vh;
-
             padding: 20px;
-
             display: flex;
-
             justify-content: center;
-
             align-items: center;
-
             transition: all 0.3s ease;
-
         }
-
     </style>
-
 </head>
-
 <body>
-
     <div id="particles-js"></div>
 
     <!-- Menú Hamburguesa -->
-
     <div class="menu-toggle">
-
         <div class="line"></div>
-
         <div class="line"></div>
-
         <div class="line"></div>
-
     </div>
 
     <!-- Sidebar -->
-
     <div class="sidebar">
-
         <div class="menu-section">
-
             <h3 class="menu-section-title">Checkers</h3>
-
             <ul class="menu-items">
-
                 <li class="menu-item">
-
                     <div class="menu-link" data-section="cc-checker">
-
                         <span class="menu-icon">💳</span>
-
                         <span>CC Checker</span>
-
                     </div>
-
                 </li>
-
                 <li class="menu-item">
-
                     <div class="menu-link" data-section="disney-checker">
-
                         <span class="menu-icon">🎬</span>
-
                         <span>Disney+ Checker</span>
-
                     </div>
-
                 </li>
-
                 <li class="menu-item">
-
                     <div class="menu-link" data-section="steam-checker">
-
                         <span class="menu-icon">🎮</span>
-
                         <span>Steam Checker</span>
-
                     </div>
-
                 </li>
-
             </ul>
-
         </div>
 
         <div class="menu-section">
-
             <h3 class="menu-section-title">Generators</h3>
-
             <ul class="menu-items">
-
                 <li class="menu-item">
-
                     <div class="menu-link" data-section="cc-gen">
-
                         <span class="menu-icon">⚡</span>
-
                         <span>CC Generator</span>
-
                     </div>
-
                 </li>
-
                 <li class="menu-item">
-
                     <div class="menu-link" data-section="proxy-gen">
-
                         <span class="menu-icon">🌐</span>
-
                         <span>Proxy Generator</span>
-
                     </div>
-
                 </li>
-
             </ul>
-
         </div>
-
     </div>
 
     <!-- Overlay -->
-
     <div class="menu-overlay"></div>
 
     <!-- Contenedor Principal -->
-
     <div class="main-container" id="mainContent">
-
         <!-- El contenido dinámico se cargará aquí -->
-
     </div>
-
 <style>
-
     /* Estilos para los contenedores de herramientas */
-
     .tool-container {
-
         background: rgba(20, 21, 33, 0.7);
-
         backdrop-filter: blur(10px);
-
         border-radius: 24px;
-
         padding: 40px;
-
         width: 100%;
-
         max-width: 900px;
-
         position: relative;
-
         border: 1px solid rgba(255, 255, 255, 0.1);
-
         animation: fadeIn 0.5s ease forwards;
-
     }
 
     @keyframes fadeIn {
-
         from {
-
             opacity: 0;
-
             transform: translateY(20px);
-
         }
-
         to {
-
             opacity: 1;
-
             transform: translateY(0);
-
         }
-
     }
 
     /* Header de las herramientas */
-
     .tool-header {
-
         display: flex;
-
         align-items: center;
-
         gap: 15px;
-
         margin-bottom: 40px;
-
     }
 
     .tool-icon {
-
         background: #5865F2;
-
         width: 60px;
-
         height: 60px;
-
         border-radius: 15px;
-
         display: flex;
-
         align-items: center;
-
         justify-content: center;
-
         font-size: 1.8em;
-
     }
 
     .tool-title {
-
         font-size: 2em;
-
         font-weight: 600;
-
         color: #fff;
-
     }
 
     /* Contenido de las herramientas */
-
     .tool-content {
-
         display: grid;
-
         grid-template-columns: 1.5fr 1fr;
-
         gap: 30px;
-
     }
 
     /* Secciones de input y opciones */
-
     .input-section, .options-section {
-
         background: rgba(30, 31, 48, 0.5);
-
         border-radius: 20px;
-
         padding: 25px;
-
         border: 1px solid rgba(255, 255, 255, 0.05);
-
     }
 
     .section-title {
-
         font-size: 1.2em;
-
         color: rgba(255, 255, 255, 0.9);
-
         margin-bottom: 20px;
-
     }
 
     /* Textarea personalizado */
-
     .tool-textarea {
-
         width: 100%;
-
         height: 200px;
-
         background: rgba(15, 16, 25, 0.6);
-
         border: 1px solid rgba(255, 255, 255, 0.1);
-
         border-radius: 12px;
-
         padding: 15px;
-
         color: white;
-
         font-family: 'Consolas', monospace;
-
         font-size: 1em;
-
         resize: none;
-
         transition: all 0.3s ease;
-
     }
 
     .tool-textarea:focus {
-
         outline: none;
-
         border-color: #5865F2;
-
         box-shadow: 0 0 10px rgba(88, 101, 242, 0.2);
-
     }
 
     .tool-textarea::placeholder {
-
         color: rgba(255, 255, 255, 0.3);
-
     }
 
     /* Lista de opciones */
-
     .options-list {
-
         display: flex;
-
         flex-direction: column;
-
         gap: 15px;
-
     }
 
     .option-item {
-
         background: rgba(15, 16, 25, 0.6);
-
         padding: 15px;
-
         border-radius: 12px;
-
         display: flex;
-
         align-items: center;
-
         gap: 12px;
-
         cursor: pointer;
-
         transition: all 0.3s ease;
-
         border: 1px solid rgba(255, 255, 255, 0.05);
-
     }
 
     .option-item:hover {
-
         background: rgba(88, 101, 242, 0.1);
-
         border-color: rgba(88, 101, 242, 0.3);
-
     }
 
     /* Checkbox personalizado */
-
     .custom-checkbox {
-
         width: 20px;
-
         height: 20px;
-
         border: 2px solid rgba(255, 255, 255, 0.3);
-
         border-radius: 6px;
-
         display: inline-flex;
-
         align-items: center;
-
         justify-content: center;
-
         transition: all 0.3s ease;
-
     }
 
     .option-item input[type="checkbox"] {
-
         display: none;
-
     }
 
     .option-item input[type="checkbox"]:checked + .custom-checkbox {
-
         background: #5865F2;
-
         border-color: #5865F2;
-
     }
 
     .option-item input[type="checkbox"]:checked + .custom-checkbox::after {
-
         content: '✓';
-
         color: white;
-
         font-size: 14px;
-
     }
 
     /* Inputs para generators */
-
     .generator-options {
-
         display: flex;
-
         flex-direction: column;
-
         gap: 15px;
-
     }
 
     .option-group {
-
         display: flex;
-
         flex-direction: column;
-
         gap: 8px;
-
     }
 
     .option-group label {
-
         color: rgba(255, 255, 255, 0.7);
-
         font-size: 0.9em;
-
     }
 
     .gen-input {
-
         background: rgba(15, 16, 25, 0.6);
-
         border: 1px solid rgba(255, 255, 255, 0.1);
-
         border-radius: 8px;
-
         padding: 10px;
-
         color: white;
-
         font-size: 0.9em;
-
         transition: all 0.3s ease;
-
     }
 
     .gen-input:focus {
-
         outline: none;
-
         border-color: #5865F2;
-
     }
 
     select.gen-input {
-
         appearance: none;
-
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M8 10l4-4H4z'/%3E%3C/svg%3E");
-
         background-repeat: no-repeat;
-
         background-position: right 10px center;
-
         padding-right: 30px;
-
     }
 
     /* Botones de acción */
-
     .action-buttons {
-
         display: flex;
-
         gap: 15px;
-
         margin-top: 30px;
-
     }
 
     .check-button {
-
         flex: 2;
-
         background: linear-gradient(45deg, #5865F2, #4752C4);
-
         color: white;
-
         border: none;
-
         padding: 15px 30px;
-
         border-radius: 12px;
-
         font-size: 1.1em;
-
         cursor: pointer;
-
         transition: all 0.3s ease;
-
         display: flex;
-
         align-items: center;
-
         justify-content: center;
-
         gap: 10px;
-
     }
 
     .check-button:hover {
-
         transform: translateY(-2px);
-
         box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
-
     }
 
     .clear-button {
-
         flex: 1;
-
         background: rgba(255, 255, 255, 0.1);
-
         color: white;
-
         border: 1px solid rgba(255, 255, 255, 0.1);
-
         padding: 15px 30px;
-
         border-radius: 12px;
-
         font-size: 1.1em;
-
         cursor: pointer;
-
         transition: all 0.3s ease;
-
     }
 
     .clear-button:hover {
-
         background: rgba(255, 255, 255, 0.15);
-
     }
 
     /* Área de resultados */
-
     .results-container {
-
         margin-top: 30px;
-
         display: none;
-
     }
 
     .results-container.active {
-
         display: block;
-
         animation: slideDown 0.5s ease forwards;
-
     }
 
     @keyframes slideDown {
-
         from {
-
             opacity: 0;
-
             transform: translateY(-20px);
-
         }
-
         to {
-
             opacity: 1;
-
             transform: translateY(0);
-
         }
-
     }
 
     .results-header {
-
         background: rgba(30, 31, 48, 0.5);
-
         border-radius: 15px;
-
         padding: 20px;
-
         display: flex;
-
         justify-content: space-between;
-
         align-items: center;
-
         margin-bottom: 20px;
-
         border: 1px solid rgba(255, 255, 255, 0.05);
-
     }
 
     .results-stats {
-
         display: flex;
-
         gap: 15px;
-
     }
 
     .stat-badge {
-
         padding: 8px 15px;
-
         border-radius: 10px;
-
         font-size: 0.9em;
-
         display: flex;
-
         align-items: center;
-
         gap: 8px;
-
     }
 
     .stat-badge.lives {
-
         background: rgba(52, 211, 153, 0.1);
-
         border: 1px solid rgba(52, 211, 153, 0.2);
-
         color: #34D399;
-
     }
 
     .stat-badge.deads {
-
         background: rgba(239, 68, 68, 0.1);
-
         border: 1px solid rgba(239, 68, 68, 0.2);
-
         color: #EF4444;
-
     }
 
     /* Responsive */
-
     @media (max-width: 768px) {
-
         .tool-content {
-
             grid-template-columns: 1fr;
-
         }
-
         
-
         .tool-container {
-
             padding: 20px;
-
             margin: 20px;
-
         }
-
+    }
+</style>
+<style>
+    /* Estilos para los contenedores de herramientas */
+    .tool-container {
+        background: rgba(20, 21, 33, 0.7);
+        backdrop-filter: blur(10px);
+        border-radius: 24px;
+        padding: 40px;
+        width: 100%;
+        max-width: 900px;
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        animation: fadeIn 0.5s ease forwards;
     }
 
-</style>
-
-<script>
-
-// Configuración de partículas
-
-document.addEventListener('DOMContentLoaded', () => {
-
-    // Configuración de partículas
-
-    particlesJS('particles-js', {
-
-        "particles": {
-
-            "number": {
-
-                "value": 80,
-
-                "density": {
-
-                    "enable": true,
-
-                    "value_area": 800
-
-                }
-
-            },
-
-            "color": {
-
-                "value": "#ffffff"
-
-            },
-
-            "shape": {
-
-                "type": "circle"
-
-            },
-
-            "opacity": {
-
-                "value": 0.2,
-
-                "random": true
-
-            },
-
-            "size": {
-
-                "value": 3,
-
-                "random": true
-
-            },
-
-            "line_linked": {
-
-                "enable": true,
-
-                "distance": 150,
-
-                "color": "#ffffff",
-
-                "opacity": 0.1,
-
-                "width": 1
-
-            },
-
-            "move": {
-
-                "enable": true,
-
-                "speed": 2,
-
-                "direction": "none",
-
-                "random": true,
-
-                "straight": false,
-
-                "out_mode": "out",
-
-                "bounce": false
-
-            }
-
-        },
-
-        "interactivity": {
-
-            "detect_on": "canvas",
-
-            "events": {
-
-                "onhover": {
-
-                    "enable": true,
-
-                    "mode": "repulse"
-
-                }
-
-            }
-
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
         }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
+    /* Header de las herramientas */
+    .tool-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 40px;
+    }
+
+    .tool-icon {
+        background: #5865F2;
+        width: 60px;
+        height: 60px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8em;
+    }
+
+    .tool-title {
+        font-size: 2em;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    /* Contenido de las herramientas */
+    .tool-content {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 30px;
+    }
+
+    /* Secciones de input y opciones */
+    .input-section, .options-section {
+        background: rgba(30, 31, 48, 0.5);
+        border-radius: 20px;
+        padding: 25px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .section-title {
+        font-size: 1.2em;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 20px;
+    }
+
+    /* Textarea personalizado */
+    .tool-textarea {
+        width: 100%;
+        height: 200px;
+        background: rgba(15, 16, 25, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 15px;
+        color: white;
+        font-family: 'Consolas', monospace;
+        font-size: 1em;
+        resize: none;
+        transition: all 0.3s ease;
+    }
+
+    .tool-textarea:focus {
+        outline: none;
+        border-color: #5865F2;
+        box-shadow: 0 0 10px rgba(88, 101, 242, 0.2);
+    }
+
+    .tool-textarea::placeholder {
+        color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Lista de opciones */
+    .options-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .option-item {
+        background: rgba(15, 16, 25, 0.6);
+        padding: 15px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .option-item:hover {
+        background: rgba(88, 101, 242, 0.1);
+        border-color: rgba(88, 101, 242, 0.3);
+    }
+
+    /* Checkbox personalizado */
+    .custom-checkbox {
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .option-item input[type="checkbox"] {
+        display: none;
+    }
+
+    .option-item input[type="checkbox"]:checked + .custom-checkbox {
+        background: #5865F2;
+        border-color: #5865F2;
+    }
+
+    .option-item input[type="checkbox"]:checked + .custom-checkbox::after {
+        content: '✓';
+        color: white;
+        font-size: 14px;
+    }
+
+    /* Inputs para generators */
+    .generator-options {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .option-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .option-group label {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9em;
+    }
+
+    .gen-input {
+        background: rgba(15, 16, 25, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 10px;
+        color: white;
+        font-size: 0.9em;
+        transition: all 0.3s ease;
+    }
+
+    .gen-input:focus {
+        outline: none;
+        border-color: #5865F2;
+    }
+
+    select.gen-input {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M8 10l4-4H4z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        padding-right: 30px;
+    }
+
+    /* Botones de acción */
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    .check-button {
+        flex: 2;
+        background: linear-gradient(45deg, #5865F2, #4752C4);
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 12px;
+        font-size: 1.1em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .check-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
+    }
+
+    .clear-button {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 15px 30px;
+        border-radius: 12px;
+        font-size: 1.1em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .clear-button:hover {
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Área de resultados */
+    .results-container {
+        margin-top: 30px;
+        display: none;
+    }
+
+    .results-container.active {
+        display: block;
+        animation: slideDown 0.5s ease forwards;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .results-header {
+        background: rgba(30, 31, 48, 0.5);
+        border-radius: 15px;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .results-stats {
+        display: flex;
+        gap: 15px;
+    }
+
+    .stat-badge {
+        padding: 8px 15px;
+        border-radius: 10px;
+        font-size: 0.9em;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .stat-badge.lives {
+        background: rgba(52, 211, 153, 0.1);
+        border: 1px solid rgba(52, 211, 153, 0.2);
+        color: #34D399;
+    }
+
+    .stat-badge.deads {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+        color: #EF4444;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .tool-content {
+            grid-template-columns: 1fr;
+        }
+        
+        .tool-container {
+            padding: 20px;
+            margin: 20px;
+        }
+    }
+</style>
+<script>
+// Configuración de partículas
+document.addEventListener('DOMContentLoaded', () => {
+    // Configuración de partículas
+    particlesJS('particles-js', {
+        "particles": {
+            "number": {
+                "value": 80,
+                "density": {
+                    "enable": true,
+                    "value_area": 800
+                }
+            },
+            "color": {
+                "value": "#ffffff"
+            },
+            "shape": {
+                "type": "circle"
+            },
+            "opacity": {
+                "value": 0.2,
+                "random": true
+            },
+            "size": {
+                "value": 3,
+                "random": true
+            },
+            "line_linked": {
+                "enable": true,
+                "distance": 150,
+                "color": "#ffffff",
+                "opacity": 0.1,
+                "width": 1
+            },
+            "move": {
+                "enable": true,
+                "speed": 2,
+                "direction": "none",
+                "random": true,
+                "straight": false,
+                "out_mode": "out",
+                "bounce": false
+            }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+                "onhover": {
+                    "enable": true,
+                    "mode": "repulse"
+                }
+            }
+        }
     });
 
     // Manejo del menú
-
     setupMenu();
-
     
-
     // Cargar sección inicial
-
     loadSection('cc-checker');
-
 });
 
 // Configuración del menú
-
 function setupMenu() {
-
     const menuToggle = document.querySelector('.menu-toggle');
-
     const sidebar = document.querySelector('.sidebar');
-
     const menuOverlay = document.querySelector('.menu-overlay');
-
     const menuLinks = document.querySelectorAll('.menu-link');
 
     menuToggle.addEventListener('click', () => {
-
         menuToggle.classList.toggle('active');
-
         sidebar.classList.toggle('active');
-
         menuOverlay.classList.toggle('active');
-
     });
 
     menuOverlay.addEventListener('click', () => {
-
         menuToggle.classList.remove('active');
-
         sidebar.classList.remove('active');
-
         menuOverlay.classList.remove('active');
-
     });
 
     menuLinks.forEach(link => {
-
         link.addEventListener('click', () => {
-
             // Remover clase active de todos los links
-
             menuLinks.forEach(l => l.classList.remove('active'));
-
             // Agregar clase active al link clickeado
-
             link.classList.add('active');
-
             
-
             // Cerrar el menú
-
             menuToggle.classList.remove('active');
-
             sidebar.classList.remove('active');
-
             menuOverlay.classList.remove('active');
 
             // Cargar la sección correspondiente
-
             loadSection(link.dataset.section);
-
         });
-
     });
-
 }
 
 // Templates de las herramientas
-
 const toolTemplates = {
-
     'cc-checker': `
-
         <div class="tool-container">
-
             <div class="tool-header">
-
                 <div class="tool-icon">💳</div>
-
                 <h2 class="tool-title">CC CHECKER</h2>
-
             </div>
-
             
-
             <div class="tool-content">
-
                 <div class="input-section">
-
                     <h3 class="section-title">Ingresa las tarjetas (1 por línea)</h3>
-
                     <textarea class="tool-textarea" placeholder="4242424242424242|12|2025|123"></textarea>
-
                 </div>
-
                 
-
                 <div class="options-section">
-
                     <h3 class="section-title">Opciones</h3>
-
                     <div class="options-list">
-
                         <label class="option-item">
-
                             <input type="checkbox" checked>
-
                             <span class="custom-checkbox"></span>
-
                             <span class="option-label">Verificar CVV</span>
-
                         </label>
-
                         <label class="option-item">
-
                             <input type="checkbox" checked>
-
                             <span class="custom-checkbox"></span>
-
                             <span class="option-label">Verificar Fecha</span>
-
                         </label>
-
                         <label class="option-item">
-
                             <input type="checkbox">
-
                             <span class="custom-checkbox"></span>
-
                             <span class="option-label">Modo Estricto</span>
-
                         </label>
-
                     </div>
-
                 </div>
-
             </div>
 
             <div class="action-buttons">
-
                 <button class="check-button" data-action="check-cc">
-
                     <span>⚡</span>
-
                     <span>Iniciar Check</span>
-
                 </button>
-
                 <button class="clear-button">Limpiar</button>
-
             </div>
 
             <div class="results-container"></div>
-
         </div>
-
     `,
 
     'disney-checker': `
-
         <div class="tool-container">
-
             <div class="tool-header">
-
                 <div class="tool-icon">🎬</div>
-
                 <h2 class="tool-title">DISNEY+ CHECKER</h2>
-
             </div>
-
             
-
             <div class="tool-content">
-
                 <div class="input-section">
-
                     <h3 class="section-title">Ingresa las cuentas (1 por línea)</h3>
-
                     <textarea class="tool-textarea" placeholder="email@example.com:password"></textarea>
-
                 </div>
-
                 
-
                 <div class="options-section">
-
                     <h3 class="section-title">Opciones</h3>
-
                     <div class="options-list">
-
                         <label class="option-item">
-
                             <input type="checkbox" checked>
-
                             <span class="custom-checkbox"></span>
-
                             <span class="option-label">Verificar Plan</span>
-
                         </label>
-
                         <label class="option-item">
-
                             <input type="checkbox" checked>
-
                             <span class="custom-checkbox"></span>
-
                             <span class="option-label">Verificar Perfiles</span>
-
                         </label>
-
                         <label class="option-item">
-
                             <input type="checkbox">
-
                             <span class="custom-checkbox"></span>
-
                             <span class="option-label">Verificar Vencimiento</span>
-
                         </label>
-
                     </div>
-
                 </div>
-
             </div>
 
             <div class="action-buttons">
-
                 <button class="check-button" data-action="check-disney">
-
                     <span>⚡</span>
-
                     <span>Verificar Cuentas</span>
-
                 </button>
-
                 <button class="clear-button">Limpiar</button>
-
             </div>
 
             <div class="results-container"></div>
-
         </div>
-
     `,
 
     'steam-checker': `
-
         <div class="tool-container">
-
             <div class="tool-header">
-
                 <div class="tool-icon">🎮</div>
-
                 <h2 class="tool-title">STEAM CHECKER</h2>
-
             </div>
-
             
-
             <div class="tool-content">
-
                 <div class="input-section">
-
                     <h3 class="section-title">Ingresa las cuentas (1 por línea)</h3>
-
                     <textarea class="tool-textarea" placeholder="username:password"></textarea>
-
                 </div>
-
                 
-
                 <div class="options-section">
-
                     <h3 class="section-title">Opciones</h3>
-
                     <div class="options-list">
-
                         <label class="option-item">
-
                             <input type="checkbox" checked>
-
                             <span class="custom-checkbox"></span>
-
                             <span class="option-label">Verificar Juegos</span>
-
                         </label>
-
                         <label class="option-item">
-
                             <input type="checkbox" checked>
-
                             <span class="custom-checkbox"></span>
-
                             <span class="option-label">Verificar Saldo</span>
-
                         </label>
-
                         <label class="option-item">
-
                             <input type="checkbox">
-
                             <span class="custom-checkbox"></span>
-
                             <span class="option-label">Verificar VAC Ban</span>
-
                         </label>
-
                     </div>
-
                 </div>
-
             </div>
 
             <div class="action-buttons">
-
                 <button class="check-button" data-action="check-steam">
-
                     <span>⚡</span>
-
                     <span>Verificar Cuentas</span>
-
                 </button>
-
                 <button class="clear-button">Limpiar</button>
-
             </div>
 
             <div class="results-container"></div>
-
         </div>
-
     `
-
 };
 
 // Continúa en la siguiente parte...
-
 </script>
-
 <script>
+// Continuación de los templates
+const generatorTemplates = {
+    'cc-gen': `
+        <div class="tool-container">
+            <div class="tool-header">
+                <div class="tool-icon">⚡</div>
+                <h2 class="tool-title">CC GENERATOR</h2>
+            </div>
+            
+            <div class="tool-content">
+                <div class="input-section">
+                    <h3 class="section-title">Configuración de Generación</h3>
+                    <div class="generator-options">
+                        <div class="option-group">
+                            <label>BIN</label>
+                            <input type="text" class="gen-input" id="binInput" placeholder="424242xxxxxxxxxx" maxlength="16">
+                        </div>
+                        <div class="option-group">
+                            <label>Cantidad</label>
+                            <input type="number" class="gen-input" id="quantityInput" value="10" min="1" max="100">
+                        </div>
+                        <div class="option-group">
+                            <label>Formato</label>
+                            <select class="gen-input" id="formatInput">
+                                <option value="standard">CARD|MM|YYYY|CVV</option>
+                                <option value="pipe">CARD|MM|YY|CVV</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="options-section">
+                    <h3 class="section-title">Opciones</h3>
+                    <div class="options-list">
+                        <label class="option-item">
+                            <input type="checkbox" checked id="genCvv">
+                            <span class="custom-checkbox"></span>
+                            <span class="option-label">Generar CVV</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" checked id="randomDate">
+                            <span class="custom-checkbox"></span>
+                            <span class="option-label">Fecha Aleatoria</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" checked id="luhnCheck">
+                            <span class="custom-checkbox"></span>
+                            <span class="option-label">Validar Luhn</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
 
-// Sistema de notificaciones
+            <div class="action-buttons">
+                <button class="check-button" data-action="generate">
+                    <span>⚡</span>
+                    <span>Generar</span>
+                </button>
+                <button class="clear-button">Limpiar</button>
+            </div>
 
-function showNotification(message, type = 'info') {
-
-    const notification = document.createElement('div');
-
-    notification.className = `notification ${type}`;
-
-    notification.innerHTML = `
-
-        <div class="notification-content">
-
-            <span class="notification-icon">${type === 'error' ? '❌' : '✨'}</span>
-
-            <span class="notification-message">${message}</span>
-
+            <div class="results-container"></div>
         </div>
+    `,
 
-    `;
+    'proxy-gen': `
+        <div class="tool-container">
+            <div class="tool-header">
+                <div class="tool-icon">🌐</div>
+                <h2 class="tool-title">PROXY GENERATOR</h2>
+            </div>
+            
+            <div class="tool-content">
+                <div class="input-section">
+                    <h3 class="section-title">Configuración de Proxy</h3>
+                    <div class="generator-options">
+                        <div class="option-group">
+                            <label>Tipo de Proxy</label>
+                            <select class="gen-input" id="proxyType">
+                                <option value="http">HTTP/HTTPS</option>
+                                <option value="socks4">SOCKS4</option>
+                                <option value="socks5">SOCKS5</option>
+                            </select>
+                        </div>
+                        <div class="option-group">
+                            <label>País</label>
+                            <select class="gen-input" id="proxyCountry">
+                                <option value="all">Todos</option>
+                                <option value="us">Estados Unidos</option>
+                                <option value="uk">Reino Unido</option>
+                                <option value="fr">Francia</option>
+                            </select>
+                        </div>
+                        <div class="option-group">
+                            <label>Cantidad</label>
+                            <input type="number" class="gen-input" id="proxyQuantity" value="50" min="1" max="1000">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="options-section">
+                    <h3 class="section-title">Opciones</h3>
+                    <div class="options-list">
+                        <label class="option-item">
+                            <input type="checkbox" checked id="checkSpeed">
+                            <span class="custom-checkbox"></span>
+                            <span class="option-label">Verificar Velocidad</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" checked id="anonymousOnly">
+                            <span class="custom-checkbox"></span>
+                            <span class="option-label">Solo Anónimos</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
 
+            <div class="action-buttons">
+                <button class="check-button" data-action="generate-proxy">
+                    <span>⚡</span>
+                    <span>Generar Proxies</span>
+                </button>
+                <button class="clear-button">Limpiar</button>
+            </div>
+
+            <div class="results-container"></div>
+        </div>
+    `
+};
+
+// Función para cargar secciones
+function loadSection(section) {
+    const mainContent = document.getElementById('mainContent');
     
-
-    document.body.appendChild(notification);
-
+    // Determinar qué template usar
+    let template = toolTemplates[section] || generatorTemplates[section];
     
+    if (!template) {
+        template = toolTemplates['cc-checker']; // Default template
+    }
 
+    // Cargar el template con animación
+    mainContent.style.opacity = '0';
     setTimeout(() => {
+        mainContent.innerHTML = template;
+        setupToolEventListeners(section);
+        mainContent.style.opacity = '1';
+    }, 300);
+}
 
+// Configurar event listeners específicos para cada herramienta
+function setupToolEventListeners(section) {
+    const checkButton = document.querySelector('.check-button');
+    const clearButton = document.querySelector('.clear-button');
+    const resultsContainer = document.querySelector('.results-container');
+
+    if (checkButton) {
+        checkButton.addEventListener('click', () => {
+            switch(section) {
+                case 'cc-checker':
+                    handleCCCheck();
+                    break;
+                case 'disney-checker':
+                    handleDisneyCheck();
+                    break;
+                case 'steam-checker':
+                    handleSteamCheck();
+                    break;
+                case 'cc-gen':
+                    handleCCGeneration();
+                    break;
+                case 'proxy-gen':
+                    handleProxyGeneration();
+                    break;
+            }
+        });
+    }
+
+    if (clearButton) {
+        clearButton.addEventListener('click', () => {
+            const textarea = document.querySelector('.tool-textarea');
+            if (textarea) textarea.value = '';
+            if (resultsContainer) {
+                resultsContainer.innerHTML = '';
+                resultsContainer.classList.remove('active');
+            }
+        });
+    }
+}
+
+// Funciones de manejo para cada herramienta
+function handleCCCheck() {
+    const textarea = document.querySelector('.tool-textarea');
+    const cards = textarea.value.trim();
+    
+    if (!cards) {
+        showNotification('Por favor, ingresa algunas tarjetas para verificar', 'error');
+        return;
+    }
+
+    showLoading();
+    simulateCheck(cards.split('\n'), 'cc');
+}
+
+function handleDisneyCheck() {
+    const textarea = document.querySelector('.tool-textarea');
+    const accounts = textarea.value.trim();
+    
+    if (!accounts) {
+        showNotification('Por favor, ingresa algunas cuentas para verificar', 'error');
+        return;
+    }
+
+    showLoading();
+    simulateCheck(accounts.split('\n'), 'disney');
+}
+
+function handleSteamCheck() {
+    const textarea = document.querySelector('.tool-textarea');
+    const accounts = textarea.value.trim();
+    
+    if (!accounts) {
+        showNotification('Por favor, ingresa algunas cuentas para verificar', 'error');
+        return;
+    }
+
+    showLoading();
+    simulateCheck(accounts.split('\n'), 'steam');
+}
+
+// Continúa en la siguiente parte...
+</script>
+<script>
+// Sistema de notificaciones
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-icon">${type === 'error' ? '❌' : '✨'}</span>
+            <span class="notification-message">${message}</span>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
         notification.classList.add('notification-hide');
-
         setTimeout(() => notification.remove(), 300);
-
     }, 3000);
-
 }
 
 // Sistema de carga
-
 function showLoading() {
-
     const loadingOverlay = document.createElement('div');
-
     loadingOverlay.className = 'loading-overlay';
-
     loadingOverlay.innerHTML = `
-
         <div class="loader">
-
             <div class="spinner"></div>
-
             <div class="loading-text">Procesando...</div>
-
         </div>
-
     `;
-
     
-
     document.querySelector('.tool-container').appendChild(loadingOverlay);
-
     loadingOverlay.classList.add('active');
-
     
-
     return loadingOverlay;
-
 }
 
 function hideLoading(loadingOverlay) {
-
     loadingOverlay.classList.remove('active');
-
     setTimeout(() => loadingOverlay.remove(), 300);
-
 }
 
 // Funciones de generación de CC
-
 function handleCCGeneration() {
-
     const bin = document.getElementById('binInput').value;
-
     const quantity = parseInt(document.getElementById('quantityInput').value);
-
     const format = document.getElementById('formatInput').value;
-
     const genCvv = document.getElementById('genCvv').checked;
-
     const randomDate = document.getElementById('randomDate').checked;
-
     const luhnCheck = document.getElementById('luhnCheck').checked;
 
     if (!bin || bin.length < 6) {
-
         showNotification('Por favor, ingresa un BIN válido', 'error');
-
         return;
-
     }
 
     const loading = showLoading();
-
     
-
     setTimeout(() => {
-
         const generatedCards = generateCCs(bin, quantity, {
-
             genCvv,
-
             randomDate,
-
             luhnCheck,
-
             format
-
         });
-
         
-
         displayGeneratedResults(generatedCards, 'cc');
-
         hideLoading(loading);
-
     }, 1000);
-
 }
 
 function generateCCs(bin, quantity, options) {
-
     const cards = [];
-
     const currentYear = new Date().getFullYear();
-
     
-
     for (let i = 0; i < quantity; i++) {
-
         let card = bin;
-
         // Completar números restantes
-
         while (card.length < 16) {
-
             card += Math.floor(Math.random() * 10);
-
         }
-
         
-
         if (options.luhnCheck) {
-
             card = generateValidLuhn(card);
-
         }
-
         
-
         const month = (Math.floor(Math.random() * 12) + 1).toString().padStart(2, '0');
-
         const year = options.randomDate ? 
-
             currentYear + Math.floor(Math.random() * 5) : 
-
             currentYear + 3;
-
         const cvv = options.genCvv ? 
-
             Math.floor(Math.random() * 900 + 100).toString() : 
-
             '';
-
             
-
         if (options.format === 'standard') {
-
             cards.push(`${card}|${month}|${year}|${cvv}`);
-
         } else {
-
             cards.push(`${card}|${month}|${year.toString().slice(-2)}|${cvv}`);
-
         }
-
     }
-
     
-
     return cards;
-
 }
 
 // Función para generar proxies
-
 function handleProxyGeneration() {
-
     const type = document.getElementById('proxyType').value;
-
     const country = document.getElementById('proxyCountry').value;
-
     const quantity = parseInt(document.getElementById('proxyQuantity').value);
-
     const checkSpeed = document.getElementById('checkSpeed').checked;
-
     const anonymousOnly = document.getElementById('anonymousOnly').checked;
 
     const loading = showLoading();
-
     
-
     setTimeout(() => {
-
         const generatedProxies = generateProxies(type, country, quantity, {
-
             checkSpeed,
-
             anonymousOnly
-
         });
-
         
-
         displayGeneratedResults(generatedProxies, 'proxy');
-
         hideLoading(loading);
-
     }, 1500);
-
 }
 
 function generateProxies(type, country, quantity, options) {
-
     const proxies = [];
-
     const ports = [80, 8080, 3128, 8888];
-
     
-
     for (let i = 0; i < quantity; i++) {
-
         const ip = generateRandomIP();
-
         const port = ports[Math.floor(Math.random() * ports.length)];
-
         const speed = options.checkSpeed ? `${Math.floor(Math.random() * 200)}ms` : 'N/A';
-
         const anonymity = options.anonymousOnly ? 'Elite' : ['Anonymous', 'Elite'][Math.floor(Math.random() * 2)];
-
         
-
         proxies.push({
-
             ip: ip,
-
             port: port,
-
             type: type.toUpperCase(),
-
             country: country.toUpperCase(),
-
             speed: speed,
-
             anonymity: anonymity
-
         });
-
     }
-
     
-
     return proxies;
-
 }
 
 // Funciones de utilidad
-
 function generateRandomIP() {
-
     return Array(4).fill(0).map(() => Math.floor(Math.random() * 256)).join('.');
-
 }
 
 function generateValidLuhn(number) {
-
     const arr = number.split('').reverse();
-
     let sum = 0;
-
     
-
     for (let i = 0; i < arr.length; i++) {
-
         let num = parseInt(arr[i]);
-
         if (i % 2 !== 0) {
-
             num *= 2;
-
             if (num > 9) num -= 9;
-
         }
-
         sum += num;
-
     }
-
     
-
     const checkDigit = (10 - (sum % 10)) % 10;
-
     return number.slice(0, -1) + checkDigit;
-
 }
 
 // Función para mostrar resultados
-
 function displayGeneratedResults(results, type) {
-
     const resultsContainer = document.querySelector('.results-container');
-
     let html = `
-
         <div class="results-header">
-
             <div class="results-title">
-
                 ${type === 'cc' ? 'Tarjetas Generadas' : 'Proxies Generados'}
-
             </div>
-
             <div class="results-stats">
-
                 <span class="stat-badge lives">
-
                     Total: ${results.length}
-
                 </span>
-
             </div>
-
         </div>
-
         <div class="results-list">
-
     `;
 
     if (type === 'cc') {
-
         results.forEach(card => {
-
             html += `
-
                 <div class="result-item">
-
                     <span class="card-number">${card}</span>
-
                     <button class="copy-button" onclick="copyToClipboard('${card}')">
-
                         📋 Copiar
-
                     </button>
-
                 </div>
-
             `;
-
         });
-
     } else {
-
         results.forEach(proxy => {
-
             html += `
-
                 <div class="result-item">
-
                     <div class="proxy-info">
-
                         <span class="proxy-ip">${proxy.ip}:${proxy.port}</span>
-
                         <span class="proxy-details">
-
                             ${proxy.type} | ${proxy.country} | ${proxy.speed} | ${proxy.anonymity}
-
                         </span>
-
                     </div>
-
                     <button class="copy-button" onclick="copyToClipboard('${proxy.ip}:${proxy.port}')">
-
                         📋 Copiar
-
                     </button>
-
                 </div>
-
             `;
-
         });
-
     }
 
     html += `</div>`;
-
     resultsContainer.innerHTML = html;
-
     resultsContainer.classList.add('active');
-
 }
 
 // Función para copiar al portapapeles
-
 function copyToClipboard(text) {
-
     navigator.clipboard.writeText(text).then(() => {
-
         showNotification('Copiado al portapapeles', 'info');
-
     }).catch(err => {
-
         showNotification('Error al copiar', 'error');
-
     });
-
 }
 
 // Estilos adicionales para las nuevas funcionalidades
-
 const additionalStyles = `
-
     <style>
-
         .notification {
-
             position: fixed;
-
             top: 20px;
-
             right: 20px;
-
             padding: 15px 25px;
-
             border-radius: 10px;
-
             background: rgba(30, 31, 48, 0.95);
-
             backdrop-filter: blur(10px);
-
             color: white;
-
             z-index: 1000;
-
             transform: translateX(120%);
-
             animation: slideIn 0.3s forwards;
-
         }
 
         .notification-content {
-
             display: flex;
-
             align-items: center;
-
             gap: 10px;
-
         }
 
         .notification.error {
-
             background: rgba(239, 68, 68, 0.95);
-
         }
 
         .notification-hide {
-
             animation: slideOut 0.3s forwards;
-
         }
 
         @keyframes slideIn {
-
             to { transform: translateX(0); }
-
         }
 
         @keyframes slideOut {
-
             to { transform: translateX(120%); }
-
         }
 
         .copy-button {
-
             background: rgba(88, 101, 242, 0.1);
-
             border: 1px solid rgba(88, 101, 242, 0.2);
-
             color: white;
-
             padding: 5px 10px;
-
             border-radius: 6px;
-
             cursor: pointer;
-
             transition: all 0.3s ease;
-
         }
 
         .copy-button:hover {
-
             background: rgba(88, 101, 242, 0.2);
-
         }
 
         .proxy-info {
-
             display: flex;
-
             flex-direction: column;
-
             gap: 5px;
-
         }
 
         .proxy-details {
-
             font-size: 0.9em;
-
             color: rgba(255, 255, 255, 0.7);
-
         }
-
     </style>
-
 `;
 
 // Agregar los estilos adicionales al documento
-
 document.head.insertAdjacentHTML('beforeend', additionalStyles);
-
 </script>
