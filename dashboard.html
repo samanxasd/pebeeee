@@ -324,7 +324,7 @@
 
                 <li class="menu-item">
 
-                    <div class="menu-link active" data-section="cc-checker">
+                    <div class="menu-link" data-section="cc-checker">
 
                         <span class="menu-icon">💳</span>
 
@@ -340,7 +340,7 @@
 
                         <span class="menu-icon">🎬</span>
 
-                        <span>Disney Checker</span>
+                        <span>Disney+ Checker</span>
 
                     </div>
 
@@ -412,9 +412,9 @@
 
 <style>
 
-    /* Estilos para el CC Checker y otros contenidos */
+    /* Estilos para los contenedores de herramientas */
 
-    .checker-container {
+    .tool-container {
 
         background: rgba(20, 21, 33, 0.7);
 
@@ -456,7 +456,9 @@
 
     }
 
-    .checker-header {
+    /* Header de las herramientas */
+
+    .tool-header {
 
         display: flex;
 
@@ -468,7 +470,7 @@
 
     }
 
-    .checker-icon {
+    .tool-icon {
 
         background: #5865F2;
 
@@ -488,7 +490,7 @@
 
     }
 
-    .checker-title {
+    .tool-title {
 
         font-size: 2em;
 
@@ -498,7 +500,9 @@
 
     }
 
-    .checker-content {
+    /* Contenido de las herramientas */
+
+    .tool-content {
 
         display: grid;
 
@@ -507,6 +511,8 @@
         gap: 30px;
 
     }
+
+    /* Secciones de input y opciones */
 
     .input-section, .options-section {
 
@@ -530,7 +536,9 @@
 
     }
 
-    .checker-textarea {
+    /* Textarea personalizado */
+
+    .tool-textarea {
 
         width: 100%;
 
@@ -552,9 +560,11 @@
 
         resize: none;
 
+        transition: all 0.3s ease;
+
     }
 
-    .checker-textarea:focus {
+    .tool-textarea:focus {
 
         outline: none;
 
@@ -564,11 +574,13 @@
 
     }
 
-    .checker-textarea::placeholder {
+    .tool-textarea::placeholder {
 
         color: rgba(255, 255, 255, 0.3);
 
     }
+
+    /* Lista de opciones */
 
     .options-list {
 
@@ -609,6 +621,8 @@
         border-color: rgba(88, 101, 242, 0.3);
 
     }
+
+    /* Checkbox personalizado */
 
     .custom-checkbox {
 
@@ -654,11 +668,77 @@
 
     }
 
-    .option-label {
+    /* Inputs para generators */
 
-        color: rgba(255, 255, 255, 0.9);
+    .generator-options {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 15px;
 
     }
+
+    .option-group {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 8px;
+
+    }
+
+    .option-group label {
+
+        color: rgba(255, 255, 255, 0.7);
+
+        font-size: 0.9em;
+
+    }
+
+    .gen-input {
+
+        background: rgba(15, 16, 25, 0.6);
+
+        border: 1px solid rgba(255, 255, 255, 0.1);
+
+        border-radius: 8px;
+
+        padding: 10px;
+
+        color: white;
+
+        font-size: 0.9em;
+
+        transition: all 0.3s ease;
+
+    }
+
+    .gen-input:focus {
+
+        outline: none;
+
+        border-color: #5865F2;
+
+    }
+
+    select.gen-input {
+
+        appearance: none;
+
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M8 10l4-4H4z'/%3E%3C/svg%3E");
+
+        background-repeat: no-repeat;
+
+        background-position: right 10px center;
+
+        padding-right: 30px;
+
+    }
+
+    /* Botones de acción */
 
     .action-buttons {
 
@@ -736,11 +816,113 @@
 
     }
 
-    /* Estilos responsivos */
+    /* Área de resultados */
+
+    .results-container {
+
+        margin-top: 30px;
+
+        display: none;
+
+    }
+
+    .results-container.active {
+
+        display: block;
+
+        animation: slideDown 0.5s ease forwards;
+
+    }
+
+    @keyframes slideDown {
+
+        from {
+
+            opacity: 0;
+
+            transform: translateY(-20px);
+
+        }
+
+        to {
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+        }
+
+    }
+
+    .results-header {
+
+        background: rgba(30, 31, 48, 0.5);
+
+        border-radius: 15px;
+
+        padding: 20px;
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        margin-bottom: 20px;
+
+        border: 1px solid rgba(255, 255, 255, 0.05);
+
+    }
+
+    .results-stats {
+
+        display: flex;
+
+        gap: 15px;
+
+    }
+
+    .stat-badge {
+
+        padding: 8px 15px;
+
+        border-radius: 10px;
+
+        font-size: 0.9em;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+    }
+
+    .stat-badge.lives {
+
+        background: rgba(52, 211, 153, 0.1);
+
+        border: 1px solid rgba(52, 211, 153, 0.2);
+
+        color: #34D399;
+
+    }
+
+    .stat-badge.deads {
+
+        background: rgba(239, 68, 68, 0.1);
+
+        border: 1px solid rgba(239, 68, 68, 0.2);
+
+        color: #EF4444;
+
+    }
+
+    /* Responsive */
 
     @media (max-width: 768px) {
 
-        .checker-content {
+        .tool-content {
 
             grid-template-columns: 1fr;
 
@@ -748,7 +930,7 @@
 
         
 
-        .checker-container {
+        .tool-container {
 
             padding: 20px;
 
@@ -762,137 +944,171 @@
 
 <script>
 
-    // Configuración de partículas y funcionalidad básica
+// Configuración de partículas
 
-    document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 
-        // Configuración de partículas
+    // Configuración de partículas
 
-        particlesJS('particles-js',
+    particlesJS('particles-js', {
 
-            {
+        "particles": {
 
-                "particles": {
+            "number": {
 
-                    "number": {
+                "value": 80,
 
-                        "value": 80,
+                "density": {
 
-                        "density": {
+                    "enable": true,
 
-                            "enable": true,
+                    "value_area": 800
 
-                            "value_area": 800
+                }
 
-                        }
+            },
 
-                    },
+            "color": {
 
-                    "color": {
+                "value": "#ffffff"
 
-                        "value": "#ffffff"
+            },
 
-                    },
+            "shape": {
 
-                    "shape": {
+                "type": "circle"
 
-                        "type": "circle"
+            },
 
-                    },
+            "opacity": {
 
-                    "opacity": {
+                "value": 0.2,
 
-                        "value": 0.2,
+                "random": true
 
-                        "random": true
+            },
 
-                    },
+            "size": {
 
-                    "size": {
+                "value": 3,
 
-                        "value": 3,
+                "random": true
 
-                        "random": true
+            },
 
-                    },
+            "line_linked": {
 
-                    "line_linked": {
+                "enable": true,
 
-                        "enable": true,
+                "distance": 150,
 
-                        "distance": 150,
+                "color": "#ffffff",
 
-                        "color": "#ffffff",
+                "opacity": 0.1,
 
-                        "opacity": 0.1,
+                "width": 1
 
-                        "width": 1
+            },
 
-                    },
+            "move": {
 
-                    "move": {
+                "enable": true,
 
-                        "enable": true,
+                "speed": 2,
 
-                        "speed": 2,
+                "direction": "none",
 
-                        "direction": "none",
+                "random": true,
 
-                        "random": true,
+                "straight": false,
 
-                        "straight": false,
+                "out_mode": "out",
 
-                        "out_mode": "out",
+                "bounce": false
 
-                        "bounce": false
+            }
 
-                    }
+        },
 
-                },
+        "interactivity": {
 
-                "interactivity": {
+            "detect_on": "canvas",
 
-                    "detect_on": "canvas",
+            "events": {
 
-                    "events": {
+                "onhover": {
 
-                        "onhover": {
+                    "enable": true,
 
-                            "enable": true,
-
-                            "mode": "repulse"
-
-                        }
-
-                    }
+                    "mode": "repulse"
 
                 }
 
             }
 
-        );
+        }
 
-        // Menú toggle
+    });
 
-        const menuToggle = document.querySelector('.menu-toggle');
+    // Manejo del menú
 
-        const sidebar = document.querySelector('.sidebar');
+    setupMenu();
 
-        const menuOverlay = document.querySelector('.menu-overlay');
+    
 
-        const menuLinks = document.querySelectorAll('.menu-link');
+    // Cargar sección inicial
 
-        menuToggle.addEventListener('click', () => {
+    loadSection('cc-checker');
 
-            menuToggle.classList.toggle('active');
+});
 
-            sidebar.classList.toggle('active');
+// Configuración del menú
 
-            menuOverlay.classList.toggle('active');
+function setupMenu() {
 
-        });
+    const menuToggle = document.querySelector('.menu-toggle');
 
-        menuOverlay.addEventListener('click', () => {
+    const sidebar = document.querySelector('.sidebar');
+
+    const menuOverlay = document.querySelector('.menu-overlay');
+
+    const menuLinks = document.querySelectorAll('.menu-link');
+
+    menuToggle.addEventListener('click', () => {
+
+        menuToggle.classList.toggle('active');
+
+        sidebar.classList.toggle('active');
+
+        menuOverlay.classList.toggle('active');
+
+    });
+
+    menuOverlay.addEventListener('click', () => {
+
+        menuToggle.classList.remove('active');
+
+        sidebar.classList.remove('active');
+
+        menuOverlay.classList.remove('active');
+
+    });
+
+    menuLinks.forEach(link => {
+
+        link.addEventListener('click', () => {
+
+            // Remover clase active de todos los links
+
+            menuLinks.forEach(l => l.classList.remove('active'));
+
+            // Agregar clase active al link clickeado
+
+            link.classList.add('active');
+
+            
+
+            // Cerrar el menú
 
             menuToggle.classList.remove('active');
 
@@ -900,435 +1116,293 @@
 
             menuOverlay.classList.remove('active');
 
+            // Cargar la sección correspondiente
+
+            loadSection(link.dataset.section);
+
         });
 
-        // Manejo de secciones
+    });
 
-        menuLinks.forEach(link => {
+}
 
-            link.addEventListener('click', () => {
+// Templates de las herramientas
 
-                menuLinks.forEach(l => l.classList.remove('active'));
+const toolTemplates = {
 
-                link.classList.add('active');
+    'cc-checker': `
+
+        <div class="tool-container">
+
+            <div class="tool-header">
+
+                <div class="tool-icon">💳</div>
+
+                <h2 class="tool-title">CC CHECKER</h2>
+
+            </div>
+
+            
+
+            <div class="tool-content">
+
+                <div class="input-section">
+
+                    <h3 class="section-title">Ingresa las tarjetas (1 por línea)</h3>
+
+                    <textarea class="tool-textarea" placeholder="4242424242424242|12|2025|123"></textarea>
+
+                </div>
 
                 
 
-                menuToggle.classList.remove('active');
+                <div class="options-section">
 
-                sidebar.classList.remove('active');
+                    <h3 class="section-title">Opciones</h3>
 
-                menuOverlay.classList.remove('active');
+                    <div class="options-list">
 
-                loadSection(link.dataset.section);
+                        <label class="option-item">
 
-            });
+                            <input type="checkbox" checked>
 
-        });
+                            <span class="custom-checkbox"></span>
 
-        // Cargar sección inicial
+                            <span class="option-label">Verificar CVV</span>
 
-        loadSection('cc-checker');
+                        </label>
 
-    });
+                        <label class="option-item">
+
+                            <input type="checkbox" checked>
+
+                            <span class="custom-checkbox"></span>
+
+                            <span class="option-label">Verificar Fecha</span>
+
+                        </label>
+
+                        <label class="option-item">
+
+                            <input type="checkbox">
+
+                            <span class="custom-checkbox"></span>
+
+                            <span class="option-label">Modo Estricto</span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="action-buttons">
+
+                <button class="check-button" data-action="check-cc">
+
+                    <span>⚡</span>
+
+                    <span>Iniciar Check</span>
+
+                </button>
+
+                <button class="clear-button">Limpiar</button>
+
+            </div>
+
+            <div class="results-container"></div>
+
+        </div>
+
+    `,
+
+    'disney-checker': `
+
+        <div class="tool-container">
+
+            <div class="tool-header">
+
+                <div class="tool-icon">🎬</div>
+
+                <h2 class="tool-title">DISNEY+ CHECKER</h2>
+
+            </div>
+
+            
+
+            <div class="tool-content">
+
+                <div class="input-section">
+
+                    <h3 class="section-title">Ingresa las cuentas (1 por línea)</h3>
+
+                    <textarea class="tool-textarea" placeholder="email@example.com:password"></textarea>
+
+                </div>
+
+                
+
+                <div class="options-section">
+
+                    <h3 class="section-title">Opciones</h3>
+
+                    <div class="options-list">
+
+                        <label class="option-item">
+
+                            <input type="checkbox" checked>
+
+                            <span class="custom-checkbox"></span>
+
+                            <span class="option-label">Verificar Plan</span>
+
+                        </label>
+
+                        <label class="option-item">
+
+                            <input type="checkbox" checked>
+
+                            <span class="custom-checkbox"></span>
+
+                            <span class="option-label">Verificar Perfiles</span>
+
+                        </label>
+
+                        <label class="option-item">
+
+                            <input type="checkbox">
+
+                            <span class="custom-checkbox"></span>
+
+                            <span class="option-label">Verificar Vencimiento</span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="action-buttons">
+
+                <button class="check-button" data-action="check-disney">
+
+                    <span>⚡</span>
+
+                    <span>Verificar Cuentas</span>
+
+                </button>
+
+                <button class="clear-button">Limpiar</button>
+
+            </div>
+
+            <div class="results-container"></div>
+
+        </div>
+
+    `,
+
+    'steam-checker': `
+
+        <div class="tool-container">
+
+            <div class="tool-header">
+
+                <div class="tool-icon">🎮</div>
+
+                <h2 class="tool-title">STEAM CHECKER</h2>
+
+            </div>
+
+            
+
+            <div class="tool-content">
+
+                <div class="input-section">
+
+                    <h3 class="section-title">Ingresa las cuentas (1 por línea)</h3>
+
+                    <textarea class="tool-textarea" placeholder="username:password"></textarea>
+
+                </div>
+
+                
+
+                <div class="options-section">
+
+                    <h3 class="section-title">Opciones</h3>
+
+                    <div class="options-list">
+
+                        <label class="option-item">
+
+                            <input type="checkbox" checked>
+
+                            <span class="custom-checkbox"></span>
+
+                            <span class="option-label">Verificar Juegos</span>
+
+                        </label>
+
+                        <label class="option-item">
+
+                            <input type="checkbox" checked>
+
+                            <span class="custom-checkbox"></span>
+
+                            <span class="option-label">Verificar Saldo</span>
+
+                        </label>
+
+                        <label class="option-item">
+
+                            <input type="checkbox">
+
+                            <span class="custom-checkbox"></span>
+
+                            <span class="option-label">Verificar VAC Ban</span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="action-buttons">
+
+                <button class="check-button" data-action="check-steam">
+
+                    <span>⚡</span>
+
+                    <span>Verificar Cuentas</span>
+
+                </button>
+
+                <button class="clear-button">Limpiar</button>
+
+            </div>
+
+            <div class="results-container"></div>
+
+        </div>
+
+    `
+
+};
+
+// Continúa en la siguiente parte...
 
 </script>
 
 <script>
 
-// Agregar después del script anterior
-
-// Función para cargar secciones
-
-function loadSection(section) {
-
-    const mainContent = document.getElementById('mainContent');
-
-    const templates = {
-
-        'cc-checker': `
-
-            <div class="checker-container">
-
-                <div class="checker-header">
-
-                    <div class="checker-icon">💳</div>
-
-                    <h2 class="checker-title">CC CHECKER</h2>
-
-                </div>
-
-                
-
-                <div class="checker-content">
-
-                    <div class="input-section">
-
-                        <h3 class="section-title">Ingresa las tarjetas (1 por línea)</h3>
-
-                        <textarea class="checker-textarea" placeholder="4242424242424242|12|2025|123"></textarea>
-
-                    </div>
-
-                    
-
-                    <div class="options-section">
-
-                        <h3 class="section-title">Opciones</h3>
-
-                        <div class="options-list">
-
-                            <label class="option-item">
-
-                                <input type="checkbox" checked>
-
-                                <span class="custom-checkbox"></span>
-
-                                <span class="option-label">Verificar CVV</span>
-
-                            </label>
-
-                            <label class="option-item">
-
-                                <input type="checkbox" checked>
-
-                                <span class="custom-checkbox"></span>
-
-                                <span class="option-label">Verificar Fecha</span>
-
-                            </label>
-
-                            <label class="option-item">
-
-                                <input type="checkbox">
-
-                                <span class="custom-checkbox"></span>
-
-                                <span class="option-label">Modo Estricto</span>
-
-                            </label>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="action-buttons">
-
-                    <button class="check-button">
-
-                        <span>⚡</span>
-
-                        <span>Iniciar Check</span>
-
-                    </button>
-
-                    <button class="clear-button">Limpiar</button>
-
-                </div>
-
-                <div class="results-container"></div>
-
-            </div>
-
-        `,
-
-        'disney-checker': `
-
-            <div class="checker-container">
-
-                <div class="checker-header">
-
-                    <div class="checker-icon">🎬</div>
-
-                    <h2 class="checker-title">DISNEY CHECKER</h2>
-
-                </div>
-
-                
-
-                <div class="checker-content">
-
-                    <div class="input-section">
-
-                        <h3 class="section-title">Ingresa las cuentas (1 por línea)</h3>
-
-                        <textarea class="checker-textarea" placeholder="email@example.com:password"></textarea>
-
-                    </div>
-
-                    
-
-                    <div class="options-section">
-
-                        <h3 class="section-title">Opciones</h3>
-
-                        <div class="options-list">
-
-                            <label class="option-item">
-
-                                <input type="checkbox" checked>
-
-                                <span class="custom-checkbox"></span>
-
-                                <span class="option-label">Verificar Plan</span>
-
-                            </label>
-
-                            <label class="option-item">
-
-                                <input type="checkbox" checked>
-
-                                <span class="custom-checkbox"></span>
-
-                                <span class="option-label">Verificar Perfiles</span>
-
-                            </label>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="action-buttons">
-
-                    <button class="check-button">
-
-                        <span>⚡</span>
-
-                        <span>Iniciar Check</span>
-
-                    </button>
-
-                    <button class="clear-button">Limpiar</button>
-
-                </div>
-
-                <div class="results-container"></div>
-
-            </div>
-
-        `,
-
-        'steam-checker': `
-
-            <div class="checker-container">
-
-                <div class="checker-header">
-
-                    <div class="checker-icon">🎮</div>
-
-                    <h2 class="checker-title">STEAM CHECKER</h2>
-
-                </div>
-
-                
-
-                <div class="checker-content">
-
-                    <div class="input-section">
-
-                        <h3 class="section-title">Ingresa las cuentas (1 por línea)</h3>
-
-                        <textarea class="checker-textarea" placeholder="username:password"></textarea>
-
-                    </div>
-
-                    
-
-                    <div class="options-section">
-
-                        <h3 class="section-title">Opciones</h3>
-
-                        <div class="options-list">
-
-                            <label class="option-item">
-
-                                <input type="checkbox" checked>
-
-                                <span class="custom-checkbox"></span>
-
-                                <span class="option-label">Verificar Juegos</span>
-
-                            </label>
-
-                            <label class="option-item">
-
-                                <input type="checkbox" checked>
-
-                                <span class="custom-checkbox"></span>
-
-                                <span class="option-label">Verificar Saldo</span>
-
-                            </label>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="action-buttons">
-
-                    <button class="check-button">
-
-                        <span>⚡</span>
-
-                        <span>Iniciar Check</span>
-
-                    </button>
-
-                    <button class="clear-button">Limpiar</button>
-
-                </div>
-
-                <div class="results-container"></div>
-
-            </div>
-
-        `,
-
-        'cc-gen': `
-
-            <div class="checker-container">
-
-                <div class="checker-header">
-
-                    <div class="checker-icon">⚡</div>
-
-                    <h2 class="checker-title">CC GENERATOR</h2>
-
-                </div>
-
-                
-
-                <div class="checker-content">
-
-                    <div class="input-section">
-
-                        <h3 class="section-title">Configuración</h3>
-
-                        <!-- Agregar opciones de generación -->
-
-                    </div>
-
-                    
-
-                    <div class="options-section">
-
-                        <h3 class="section-title">Opciones</h3>
-
-                        <div class="options-list">
-
-                            <label class="option-item">
-
-                                <input type="checkbox" checked>
-
-                                <span class="custom-checkbox"></span>
-
-                                <span class="option-label">Generar CVV</span>
-
-                            </label>
-
-                            <label class="option-item">
-
-                                <input type="checkbox" checked>
-
-                                <span class="custom-checkbox"></span>
-
-                                <span class="option-label">Fecha Aleatoria</span>
-
-                            </label>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="action-buttons">
-
-                    <button class="check-button">
-
-                        <span>⚡</span>
-
-                        <span>Generar</span>
-
-                    </button>
-
-                    <button class="clear-button">Limpiar</button>
-
-                </div>
-
-                <div class="results-container"></div>
-
-            </div>
-
-        `
-
-    };
-
-    // Cargar el template correspondiente
-
-    mainContent.innerHTML = templates[section] || templates['cc-checker'];
-
-    // Agregar event listeners después de cargar el contenido
-
-    setupEventListeners();
-
-}
-
-// Configurar event listeners para los botones
-
-function setupEventListeners() {
-
-    const checkButton = document.querySelector('.check-button');
-
-    const clearButton = document.querySelector('.clear-button');
-
-    const textarea = document.querySelector('.checker-textarea');
-
-    if (checkButton) {
-
-        checkButton.addEventListener('click', () => {
-
-            if (!textarea.value.trim()) {
-
-                showNotification('Por favor, ingresa datos para verificar', 'error');
-
-                return;
-
-            }
-
-            startCheck();
-
-        });
-
-    }
-
-    if (clearButton) {
-
-        clearButton.addEventListener('click', () => {
-
-            textarea.value = '';
-
-            const resultsContainer = document.querySelector('.results-container');
-
-            if (resultsContainer) {
-
-                resultsContainer.innerHTML = '';
-
-            }
-
-        });
-
-    }
-
-}
-
-// Función para mostrar notificaciones
+// Sistema de notificaciones
 
 function showNotification(message, type = 'info') {
 
@@ -1336,294 +1410,538 @@ function showNotification(message, type = 'info') {
 
     notification.className = `notification ${type}`;
 
-    notification.textContent = message;
+    notification.innerHTML = `
+
+        <div class="notification-content">
+
+            <span class="notification-icon">${type === 'error' ? '❌' : '✨'}</span>
+
+            <span class="notification-message">${message}</span>
+
+        </div>
+
+    `;
+
+    
 
     document.body.appendChild(notification);
 
+    
+
     setTimeout(() => {
 
-        notification.remove();
+        notification.classList.add('notification-hide');
+
+        setTimeout(() => notification.remove(), 300);
 
     }, 3000);
 
 }
 
-// Función para iniciar el check
+// Sistema de carga
 
-function startCheck() {
+function showLoading() {
+
+    const loadingOverlay = document.createElement('div');
+
+    loadingOverlay.className = 'loading-overlay';
+
+    loadingOverlay.innerHTML = `
+
+        <div class="loader">
+
+            <div class="spinner"></div>
+
+            <div class="loading-text">Procesando...</div>
+
+        </div>
+
+    `;
+
+    
+
+    document.querySelector('.tool-container').appendChild(loadingOverlay);
+
+    loadingOverlay.classList.add('active');
+
+    
+
+    return loadingOverlay;
+
+}
+
+function hideLoading(loadingOverlay) {
+
+    loadingOverlay.classList.remove('active');
+
+    setTimeout(() => loadingOverlay.remove(), 300);
+
+}
+
+// Funciones de generación de CC
+
+function handleCCGeneration() {
+
+    const bin = document.getElementById('binInput').value;
+
+    const quantity = parseInt(document.getElementById('quantityInput').value);
+
+    const format = document.getElementById('formatInput').value;
+
+    const genCvv = document.getElementById('genCvv').checked;
+
+    const randomDate = document.getElementById('randomDate').checked;
+
+    const luhnCheck = document.getElementById('luhnCheck').checked;
+
+    if (!bin || bin.length < 6) {
+
+        showNotification('Por favor, ingresa un BIN válido', 'error');
+
+        return;
+
+    }
+
+    const loading = showLoading();
+
+    
+
+    setTimeout(() => {
+
+        const generatedCards = generateCCs(bin, quantity, {
+
+            genCvv,
+
+            randomDate,
+
+            luhnCheck,
+
+            format
+
+        });
+
+        
+
+        displayGeneratedResults(generatedCards, 'cc');
+
+        hideLoading(loading);
+
+    }, 1000);
+
+}
+
+function generateCCs(bin, quantity, options) {
+
+    const cards = [];
+
+    const currentYear = new Date().getFullYear();
+
+    
+
+    for (let i = 0; i < quantity; i++) {
+
+        let card = bin;
+
+        // Completar números restantes
+
+        while (card.length < 16) {
+
+            card += Math.floor(Math.random() * 10);
+
+        }
+
+        
+
+        if (options.luhnCheck) {
+
+            card = generateValidLuhn(card);
+
+        }
+
+        
+
+        const month = (Math.floor(Math.random() * 12) + 1).toString().padStart(2, '0');
+
+        const year = options.randomDate ? 
+
+            currentYear + Math.floor(Math.random() * 5) : 
+
+            currentYear + 3;
+
+        const cvv = options.genCvv ? 
+
+            Math.floor(Math.random() * 900 + 100).toString() : 
+
+            '';
+
+            
+
+        if (options.format === 'standard') {
+
+            cards.push(`${card}|${month}|${year}|${cvv}`);
+
+        } else {
+
+            cards.push(`${card}|${month}|${year.toString().slice(-2)}|${cvv}`);
+
+        }
+
+    }
+
+    
+
+    return cards;
+
+}
+
+// Función para generar proxies
+
+function handleProxyGeneration() {
+
+    const type = document.getElementById('proxyType').value;
+
+    const country = document.getElementById('proxyCountry').value;
+
+    const quantity = parseInt(document.getElementById('proxyQuantity').value);
+
+    const checkSpeed = document.getElementById('checkSpeed').checked;
+
+    const anonymousOnly = document.getElementById('anonymousOnly').checked;
+
+    const loading = showLoading();
+
+    
+
+    setTimeout(() => {
+
+        const generatedProxies = generateProxies(type, country, quantity, {
+
+            checkSpeed,
+
+            anonymousOnly
+
+        });
+
+        
+
+        displayGeneratedResults(generatedProxies, 'proxy');
+
+        hideLoading(loading);
+
+    }, 1500);
+
+}
+
+function generateProxies(type, country, quantity, options) {
+
+    const proxies = [];
+
+    const ports = [80, 8080, 3128, 8888];
+
+    
+
+    for (let i = 0; i < quantity; i++) {
+
+        const ip = generateRandomIP();
+
+        const port = ports[Math.floor(Math.random() * ports.length)];
+
+        const speed = options.checkSpeed ? `${Math.floor(Math.random() * 200)}ms` : 'N/A';
+
+        const anonymity = options.anonymousOnly ? 'Elite' : ['Anonymous', 'Elite'][Math.floor(Math.random() * 2)];
+
+        
+
+        proxies.push({
+
+            ip: ip,
+
+            port: port,
+
+            type: type.toUpperCase(),
+
+            country: country.toUpperCase(),
+
+            speed: speed,
+
+            anonymity: anonymity
+
+        });
+
+    }
+
+    
+
+    return proxies;
+
+}
+
+// Funciones de utilidad
+
+function generateRandomIP() {
+
+    return Array(4).fill(0).map(() => Math.floor(Math.random() * 256)).join('.');
+
+}
+
+function generateValidLuhn(number) {
+
+    const arr = number.split('').reverse();
+
+    let sum = 0;
+
+    
+
+    for (let i = 0; i < arr.length; i++) {
+
+        let num = parseInt(arr[i]);
+
+        if (i % 2 !== 0) {
+
+            num *= 2;
+
+            if (num > 9) num -= 9;
+
+        }
+
+        sum += num;
+
+    }
+
+    
+
+    const checkDigit = (10 - (sum % 10)) % 10;
+
+    return number.slice(0, -1) + checkDigit;
+
+}
+
+// Función para mostrar resultados
+
+function displayGeneratedResults(results, type) {
 
     const resultsContainer = document.querySelector('.results-container');
 
-    resultsContainer.innerHTML = `
+    let html = `
 
         <div class="results-header">
 
-            <div class="results-title">Resultados</div>
+            <div class="results-title">
+
+                ${type === 'cc' ? 'Tarjetas Generadas' : 'Proxies Generados'}
+
+            </div>
 
             <div class="results-stats">
 
-                <span class="stat-badge lives">Lives: <span>0</span></span>
+                <span class="stat-badge lives">
 
-                <span class="stat-badge deads">Deads: <span>0</span></span>
+                    Total: ${results.length}
+
+                </span>
 
             </div>
 
         </div>
 
-        <div class="results-list"></div>
+        <div class="results-list">
 
     `;
 
-    // Aquí irá la lógica real del checker
+    if (type === 'cc') {
 
-    // Por ahora solo simularemos resultados
+        results.forEach(card => {
 
-    simulateCheck();
+            html += `
 
-}
+                <div class="result-item">
 
-// Función para simular el check (reemplazar con tu lógica real)
+                    <span class="card-number">${card}</span>
 
-function simulateCheck() {
+                    <button class="copy-button" onclick="copyToClipboard('${card}')">
 
-    const textarea = document.querySelector('.checker-textarea');
+                        📋 Copiar
 
-    const resultsList = document.querySelector('.results-list');
+                    </button>
 
-    const lines = textarea.value.split('\n').filter(line => line.trim());
-
-    let lives = 0;
-
-    let deads = 0;
-
-    lines.forEach((line, index) => {
-
-        setTimeout(() => {
-
-            const isLive = Math.random() > 0.5;
-
-            if (isLive) lives++; else deads++;
-
-            const resultItem = document.createElement('div');
-
-            resultItem.className = `result-item ${isLive ? 'live' : 'dead'}`;
-
-            resultItem.innerHTML = `
-
-                <span>${line}</span>
-
-                <span class="status">${isLive ? '✅ Live' : '❌ Dead'}</span>
+                </div>
 
             `;
 
-            resultsList.appendChild(resultItem);
+        });
 
-            // Actualizar contadores
+    } else {
 
-            document.querySelector('.lives span').textContent = lives;
+        results.forEach(proxy => {
 
-            document.querySelector('.deads span').textContent = deads;
+            html += `
 
-        }, index * 500);
+                <div class="result-item">
+
+                    <div class="proxy-info">
+
+                        <span class="proxy-ip">${proxy.ip}:${proxy.port}</span>
+
+                        <span class="proxy-details">
+
+                            ${proxy.type} | ${proxy.country} | ${proxy.speed} | ${proxy.anonymity}
+
+                        </span>
+
+                    </div>
+
+                    <button class="copy-button" onclick="copyToClipboard('${proxy.ip}:${proxy.port}')">
+
+                        📋 Copiar
+
+                    </button>
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
+    html += `</div>`;
+
+    resultsContainer.innerHTML = html;
+
+    resultsContainer.classList.add('active');
+
+}
+
+// Función para copiar al portapapeles
+
+function copyToClipboard(text) {
+
+    navigator.clipboard.writeText(text).then(() => {
+
+        showNotification('Copiado al portapapeles', 'info');
+
+    }).catch(err => {
+
+        showNotification('Error al copiar', 'error');
 
     });
 
 }
 
+// Estilos adicionales para las nuevas funcionalidades
+
+const additionalStyles = `
+
+    <style>
+
+        .notification {
+
+            position: fixed;
+
+            top: 20px;
+
+            right: 20px;
+
+            padding: 15px 25px;
+
+            border-radius: 10px;
+
+            background: rgba(30, 31, 48, 0.95);
+
+            backdrop-filter: blur(10px);
+
+            color: white;
+
+            z-index: 1000;
+
+            transform: translateX(120%);
+
+            animation: slideIn 0.3s forwards;
+
+        }
+
+        .notification-content {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+        .notification.error {
+
+            background: rgba(239, 68, 68, 0.95);
+
+        }
+
+        .notification-hide {
+
+            animation: slideOut 0.3s forwards;
+
+        }
+
+        @keyframes slideIn {
+
+            to { transform: translateX(0); }
+
+        }
+
+        @keyframes slideOut {
+
+            to { transform: translateX(120%); }
+
+        }
+
+        .copy-button {
+
+            background: rgba(88, 101, 242, 0.1);
+
+            border: 1px solid rgba(88, 101, 242, 0.2);
+
+            color: white;
+
+            padding: 5px 10px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+
+        }
+
+        .copy-button:hover {
+
+            background: rgba(88, 101, 242, 0.2);
+
+        }
+
+        .proxy-info {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 5px;
+
+        }
+
+        .proxy-details {
+
+            font-size: 0.9em;
+
+            color: rgba(255, 255, 255, 0.7);
+
+        }
+
+    </style>
+
+`;
+
+// Agregar los estilos adicionales al documento
+
+document.head.insertAdjacentHTML('beforeend', additionalStyles);
+
 </script>
-
-<style>
-
-/* Estilos adicionales para resultados */
-
-.results-container {
-
-    margin-top: 30px;
-
-    display: none;
-
-}
-
-.results-container:not(:empty) {
-
-    display: block;
-
-    animation: fadeIn 0.5s ease forwards;
-
-}
-
-.results-header {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    margin-bottom: 20px;
-
-    background: rgba(30, 31, 48, 0.5);
-
-    padding: 20px;
-
-    border-radius: 15px;
-
-    border: 1px solid rgba(255, 255, 255, 0.05);
-
-}
-
-.results-title {
-
-    font-size: 1.2em;
-
-    color: white;
-
-}
-
-.stat-badge {
-
-    padding: 8px 15px;
-
-    border-radius: 10px;
-
-    font-size: 0.9em;
-
-}
-
-.stat-badge.lives {
-
-    background: rgba(52, 211, 153, 0.1);
-
-    border: 1px solid rgba(52, 211, 153, 0.2);
-
-    color: #34D399;
-
-}
-
-.stat-badge.deads {
-
-    background: rgba(239, 68, 68, 0.1);
-
-    border: 1px solid rgba(239, 68, 68, 0.2);
-
-    color: #EF4444;
-
-}
-
-.results-list {
-
-    background: rgba(30, 31, 48, 0.5);
-
-    border-radius: 15px;
-
-    padding: 20px;
-
-    max-height: 300px;
-
-    overflow-y: auto;
-
-}
-
-.result-item {
-
-    background: rgba(15, 16, 25, 0.6);
-
-    padding: 15px;
-
-    border-radius: 10px;
-
-    margin-bottom: 10px;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    animation: slideIn 0.3s ease forwards;
-
-}
-
-.result-item.live {
-
-    border-left: 4px solid #34D399;
-
-}
-
-.result-item.dead {
-
-    border-left: 4px solid #EF4444;
-
-}
-
-@keyframes slideIn {
-
-    from {
-
-        opacity: 0;
-
-        transform: translateX(-20px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform: translateX(0);
-
-    }
-
-}
-
-/* Notificaciones */
-
-.notification {
-
-    position: fixed;
-
-    top: 20px;
-
-    right: 20px;
-
-    padding: 15px 25px;
-
-    border-radius: 10px;
-
-    background: rgba(30, 31, 48, 0.9);
-
-    color: white;
-
-    z-index: 1000;
-
-    animation: slideInRight 0.3s ease forwards;
-
-}
-
-.notification.error {
-
-    background: rgba(239, 68, 68, 0.9);
-
-}
-
-@keyframes slideInRight {
-
-    from {
-
-        opacity: 0;
-
-        transform: translateX(100%);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform: translateX(0);
-
-    }
-
-}
-
-</style>
